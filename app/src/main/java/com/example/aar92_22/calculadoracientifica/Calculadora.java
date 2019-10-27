@@ -32,8 +32,6 @@ public class Calculadora extends AppCompatActivity{
 
     private AdView mAdView;
 
-    String gitTest;
-
 
     //Variables calculadora cientifica
 
