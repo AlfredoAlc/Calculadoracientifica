@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_cientifica">
+        </com.google.android.gms.ads.AdView>
+
+        <TextView
+            android:id="@+id/resultados"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_weight="2"
+            android:fontFamily="sans-serif"
+            android:maxLength="16"
+            android:textAlignment="textEnd"
+            android:background="@color/black"
+            android:textColor="@android:color/background_light"
+            android:textSize="50dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+
+                <Button
+                    android:id="@+id/elevadoaMenosuno"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnelevadoaMenosuno"
+                    android:text="x^-1"/>
+
+                <Button
+                    android:id="@+id/degree"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtndegree"
+                    android:text="deg"/>
+
+                <Button
+                    android:id="@+id/radianes"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnradianes"
+                    android:text="rad"/>
+
+                <Button
+                    android:id="@+id/pi"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnpi"
+                    android:text="π"/>
+
+                <Button
+                    android:id="@+id/absoluto"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnabsoluto"
+                    android:text="abs"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+
+                <Button
+                    android:id="@+id/alcuadrado"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnalcuadrado"
+                    android:text="x^2"/>
+
+                <Button
+                    android:id="@+id/hipotenusa"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnhipotenusa"
+                    android:text="hyp"/>
+
+                <Button
+                    android:id="@+id/potencia"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnpotencia"
+                    android:text="^"/>
+
+
+                <Button
+                    android:id="@+id/e"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtne"
+                    android:text="e"/>
+
+
+                <Button
+                    android:id="@+id/exponente"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnexponente"
+                    android:text="exp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+
+                <Button
+                    android:id="@+id/alcubo"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnalcubo"
+                    android:text="x^3"/>
+
+                <Button
+                    android:id="@+id/seno"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnseno"
+                    android:text="sin"/>
+
+                <Button
+                    android:id="@+id/coseno"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtncoseno"
+                    android:text="cos"/>
+
+                <Button
+                    android:id="@+id/tangente"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtntangente"
+                    android:text="tan"/>
+
+
+
+                <Button
+                    android:id="@+id/diezelevado"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtndiezelevado"
+                    android:text="10^x"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+
+                <Button
+                    android:id="@+id/xfactorial"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnxfactorial"
+                    android:text="x!"/>
+
+                <Button
+                    android:id="@+id/senoinverso"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnsenoinverso"
+                    android:text="sin^-1"/>
+
+                <Button
+                    android:id="@+id/cosenoinverso"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtncosenoinverso"
+                    android:text="cos^-1"/>
+
+                <Button
+                    android:id="@+id/tangenteinverso"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtntangenteinverso"
+                    android:text="tan^-1"/>
+
+
+                <Button
+                    android:id="@+id/eelevado"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtneelevado"
+                    android:text="e^x"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+                <Button
+                    android:id="@+id/logaritmo"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnlogaritmo"
+                    android:text="log"/>
+
+                <Button
+                    android:id="@+id/borrar"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnAC"
+                    android:text="AC"/>
+
+                <Button
+                    android:id="@+id/n7"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn7"
+                    android:text="7"/>
+
+                <Button
+                    android:id="@+id/n4"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn4"
+                    android:text="4"/>
+
+                <Button
+                    android:id="@+id/n1"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn1"
+                    android:text="1"/>
+
+                <Button
+                    android:id="@+id/n0"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn0"
+                    android:text="0"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+                <Button
+                    android:id="@+id/logaritmonatural"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnlogaritmonatural"
+                    android:text="ln"/>
+
+                <Button
+                    android:id="@+id/inverso"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnInverso"
+                    android:text="+/-"/>
+
+                <Button
+                    android:id="@+id/n8"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn8"
+                    android:text="8"/>
+
+                <Button
+                    android:id="@+id/n5"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn5"
+                    android:text="5"/>
+
+                <Button
+                    android:id="@+id/n2"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn2"
+                    android:text="2"/>
+
+                <Button
+                    android:id="@+id/punto"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnPunto"
+                    android:text="."/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+                <Button
+                    android:id="@+id/raizcubica"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnraizcubica"
+                    android:text="3√"/>
+
+                <Button
+                    android:id="@+id/raiz"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnRaiz"
+                    android:text="√"/>
+
+                <Button
+                    android:id="@+id/n9"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn9"
+                    android:text="9"/>
+
+                <Button
+                    android:id="@+id/n6"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn6"
+                    android:text="6"/>
+
+                <Button
+                    android:id="@+id/n3"
+                    style="@style/numberStyleLand"
+                    android:onClick="onClickbtn3"
+                    android:text="3"/>
+
+                <Button
+                    android:id="@+id/porciento"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnporciento"
+                    android:text="%"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+
+                <Button
+                    android:id="@+id/calculadora"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtncalculadora"
+                    android:text=""/>
+
+                <Button
+                    android:id="@+id/entre"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnEntre"
+                    android:text="/"/>
+
+                <Button
+                    android:id="@+id/por"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnPor"
+                    android:text="x"/>
+
+                <Button
+                    android:id="@+id/menos"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnMenos"
+                    android:text="-"/>
+
+                <Button
+                    android:id="@+id/mas"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnMas"
+                    android:text="+"/>
+
+                <Button
+                    android:id="@+id/igual"
+                    style="@style/landStyle"
+                    android:onClick="onClickbtnIgual"
+                    android:text="="/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
