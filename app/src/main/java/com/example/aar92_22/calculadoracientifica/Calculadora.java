@@ -1,14 +1,10 @@
 package com.example.aar92_22.calculadoracientifica;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -17,20 +13,21 @@ public class Calculadora extends AppCompatActivity{
 
     TextView total;
 
-
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnPunto;
     Button btnAC, btnInverso, btnRaiz, btnEntre, btnPor, btnMenos, btnMas, btnIgual, btnPorcentaje;
 
-    Double num1, num2;
-
-    int resultadoEntero, invertirEntero;
-    Double parainvertir;
-    String operador;
-    boolean presionado = true;
+    private static final String TOTAL_TAG = "total";
 
     public static Double resultado;
 
-    private AdView mAdView;
+    int resultadoEntero, invertirEntero;
+
+    Double parainvertir;
+    Double num1, num2;
+
+    String operador;
+
+    boolean presionado = true;
 
 
     //Variables calculadora cientifica
@@ -43,8 +40,8 @@ public class Calculadora extends AppCompatActivity{
     Button btnLog, btnLn, btnRaizCubica;
     String grados = "deg";
 
-    double pi = Math.PI;
-    double e = Math.E;
+    final double pi = Math.PI;
+    final double e = Math.E;
 
 
 
@@ -55,8 +52,7 @@ public class Calculadora extends AppCompatActivity{
         setContentView(R.layout.activity_calculadora);
 
 
-
-        mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -104,11 +100,19 @@ public class Calculadora extends AppCompatActivity{
         btnDeg = (Button) findViewById(R.id.degree);
         btnAbsoluto = (Button) findViewById(R.id.absoluto);
 
-        //btnDeg.setBackgroundResource(R.drawable.custom_shape_button_pressed);
-        //btnDeg.setClickable(false);
+
 
 
         total = (TextView) findViewById(R.id.resultados);
+
+
+
+        if (savedInstanceState != null) {
+            String numberDisplayed = savedInstanceState.getString(TOTAL_TAG);
+            total.setText(numberDisplayed);
+        }
+
+
 
     }
 
@@ -1201,6 +1205,15 @@ public class Calculadora extends AppCompatActivity{
     }
 
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        String numberDisplayed = total.getText().toString();
+
+        outState.putString(TOTAL_TAG, numberDisplayed);
+    }
 
 
 

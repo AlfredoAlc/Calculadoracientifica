@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="com.example.aar92_22.calculadoracientifica.Calculadora">
-
 
 
 <LinearLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="com.example.aar92_22.calculadoracientifica.Calculadora"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -53,16 +52,176 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="7">
+        android:orientation="horizontal"
+        android:layout_weight="7"
+        android:weightSum="4">
 
 
-        <include
-            android:layout_marginTop="10dp"
-            android:id="@+id/numbers_basic"
-            layout="@layout/numbers_basic"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@color/black">
+
+
+            <Button
+                android:id="@+id/borrar"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnAC"
+                android:text="AC"/>
+
+            <Button
+                android:id="@+id/n7"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn7"
+                android:text="7"/>
+
+            <Button
+                android:id="@+id/n4"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn4"
+                android:text="4"/>
+
+            <Button
+                android:id="@+id/n1"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn1"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/n0"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn0"
+                android:text="0"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@color/black">
+
+
+            <Button
+                android:id="@+id/inverso"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnInverso"
+                android:text="+/-"/>
+
+            <Button
+                android:id="@+id/n8"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn8"
+                android:text="8"/>
+
+            <Button
+                android:id="@+id/n5"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn5"
+                android:text="5"/>
+
+            <Button
+                android:id="@+id/n2"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn2"
+                android:text="2"/>
+
+            <Button
+                android:id="@+id/punto"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnPunto"
+                android:text="."/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@color/black">
+
+
+            <Button
+                android:id="@+id/raiz"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnRaiz"
+                android:text="√"/>
+
+            <Button
+                android:id="@+id/n9"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn9"
+                android:text="9"/>
+
+            <Button
+                android:id="@+id/n6"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn6"
+                android:text="6"/>
+
+            <Button
+                android:id="@+id/n3"
+                style="@style/numberStylePort"
+                android:onClick="onClickbtn3"
+                android:text="3"/>
+
+            <Button
+                android:id="@+id/porciento"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnporciento"
+                android:text="%"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@color/black">
+
+
+
+            <Button
+                android:id="@+id/entre"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnEntre"
+                android:text="/"/>
+
+            <Button
+                android:id="@+id/por"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnPor"
+                android:text="x"/>
+
+            <Button
+                android:id="@+id/menos"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnMenos"
+                android:text="-"/>
+
+            <Button
+                android:id="@+id/mas"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnMas"
+                android:text="+"/>
+
+            <Button
+                android:id="@+id/igual"
+                style="@style/signStylePort"
+                android:onClick="onClickbtnIgual"
+                android:text="="/>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -71,5 +230,4 @@
 </LinearLayout>
 
 
-</layout>
 

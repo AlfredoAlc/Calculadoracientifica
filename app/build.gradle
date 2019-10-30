@@ -4,10 +4,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId 'calcu.aar92_22.calculadoracientifica'
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 28
-        versionCode 11
-        versionName "3.1"
+        versionCode 12
+        versionName "3.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

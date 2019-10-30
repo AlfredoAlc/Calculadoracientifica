@@ -62,7 +62,8 @@
                     android:id="@+id/degree"
                     style="@style/landStyle"
                     android:onClick="onClickbtndegree"
-                    android:text="deg"/>
+                    android:text="deg"
+                    android:background="@drawable/custom_shape_button_pressed"/>
 
                 <Button
                     android:id="@+id/radianes"
@@ -361,8 +362,8 @@
                 <Button
                     android:id="@+id/calculadora"
                     style="@style/landStyle"
-                    android:onClick="onClickbtncalculadora"
-                    android:text=""/>
+                    android:text=""
+                    android:clickable="false"/>
 
                 <Button
                     android:id="@+id/entre"
