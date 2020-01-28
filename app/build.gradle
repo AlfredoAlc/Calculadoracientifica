@@ -6,8 +6,8 @@ android {
         applicationId 'calcu.aar92_22.calculadoracientifica'
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 13
-        versionName "3.1.2"
+        versionCode 14
+        versionName "4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

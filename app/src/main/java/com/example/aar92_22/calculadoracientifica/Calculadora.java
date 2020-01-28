@@ -338,6 +338,17 @@ public class Calculadora extends AppCompatActivity{
 
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
+            btn0.setClickable(true);
+            btn1.setClickable(true);
+            btn2.setClickable(true);
+            btn3.setClickable(true);
+            btn4.setClickable(true);
+            btn5.setClickable(true);
+            btn6.setClickable(true);
+            btn7.setClickable(true);
+            btn8.setClickable(true);
+            btn9.setClickable(true);
+
         }
 
     }
@@ -368,6 +379,16 @@ public class Calculadora extends AppCompatActivity{
 
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
+            btn0.setClickable(true);
+            btn1.setClickable(true);
+            btn2.setClickable(true);
+            btn3.setClickable(true);
+            btn4.setClickable(true);
+            btn5.setClickable(true);
+            btn6.setClickable(true);
+            btn7.setClickable(true);
+            btn8.setClickable(true);
+            btn9.setClickable(true);
         }
     }
 
@@ -396,6 +417,16 @@ public class Calculadora extends AppCompatActivity{
 
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
+            btn0.setClickable(true);
+            btn1.setClickable(true);
+            btn2.setClickable(true);
+            btn3.setClickable(true);
+            btn4.setClickable(true);
+            btn5.setClickable(true);
+            btn6.setClickable(true);
+            btn7.setClickable(true);
+            btn8.setClickable(true);
+            btn9.setClickable(true);
         }
     }
 
@@ -424,6 +455,16 @@ public class Calculadora extends AppCompatActivity{
 
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
+            btn0.setClickable(true);
+            btn1.setClickable(true);
+            btn2.setClickable(true);
+            btn3.setClickable(true);
+            btn4.setClickable(true);
+            btn5.setClickable(true);
+            btn6.setClickable(true);
+            btn7.setClickable(true);
+            btn8.setClickable(true);
+            btn9.setClickable(true);
         }
     }
 
@@ -437,6 +478,16 @@ public class Calculadora extends AppCompatActivity{
             clasifyNumberAndShow();
 
         }
+        btn0.setClickable(true);
+        btn1.setClickable(true);
+        btn2.setClickable(true);
+        btn3.setClickable(true);
+        btn4.setClickable(true);
+        btn5.setClickable(true);
+        btn6.setClickable(true);
+        btn7.setClickable(true);
+        btn8.setClickable(true);
+        btn9.setClickable(true);
 
     }
 
@@ -519,6 +570,17 @@ public class Calculadora extends AppCompatActivity{
 
             btnIgual.setClickable(false);
             btnPunto.setClickable(true);
+            btn0.setClickable(true);
+            btn1.setClickable(true);
+            btn2.setClickable(true);
+            btn3.setClickable(true);
+            btn4.setClickable(true);
+            btn5.setClickable(true);
+            btn6.setClickable(true);
+            btn7.setClickable(true);
+            btn8.setClickable(true);
+            btn9.setClickable(true);
+
 
         }
 
@@ -583,11 +645,14 @@ public class Calculadora extends AppCompatActivity{
             puntoClicked = false;
             total.setText("");
             btnAC.setText(getString(R.string.clear_all));
+            btnElevar.setBackgroundResource(0);
+            btnDiezElevado.setBackgroundResource(0);
+            btnEulerElevado.setBackgroundResource(0);
+            setBtnClickable();
         }else{
             num2 = 0.0;
             num1 = 0.0;
             resultado = 0.0;
-            setBtnClickable();
         }
 
     }
@@ -605,7 +670,10 @@ public class Calculadora extends AppCompatActivity{
             resultado = Math.pow(resultado, -1);
             clasifyNumberAndShow();
             btnIgual.setClickable(false);
+        }else{
+            total.setText(getString(R.string.math_error));
         }
+        btnAC.setText(getString(R.string.clear));
 
     }
 
@@ -635,6 +703,18 @@ public class Calculadora extends AppCompatActivity{
 
         btnPi.setClickable(false);
         btnPunto.setClickable(false);
+        btn0.setClickable(false);
+        btn1.setClickable(false);
+        btn2.setClickable(false);
+        btn3.setClickable(false);
+        btn4.setClickable(false);
+        btn5.setClickable(false);
+        btn6.setClickable(false);
+        btn7.setClickable(false);
+        btn8.setClickable(false);
+        btn9.setClickable(false);
+
+        btnAC.setText(getString(R.string.clear));
     }
 
 
@@ -644,7 +724,6 @@ public class Calculadora extends AppCompatActivity{
             resultado = Math.abs(resultado);
             clasifyNumberAndShow();
             btnIgual.setClickable(false);
-
         }
 
 
@@ -677,6 +756,8 @@ public class Calculadora extends AppCompatActivity{
             operador = "pot";
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
+            btnDiezElevado.setClickable(false);
+            btnEulerElevado.setClickable(false);
         }
 
     }
@@ -687,6 +768,19 @@ public class Calculadora extends AppCompatActivity{
         total.setText(getNumber());
         btnEuler.setClickable(false);
         btnPunto.setClickable(false);
+        btn0.setClickable(false);
+        btn1.setClickable(false);
+        btn2.setClickable(false);
+        btn3.setClickable(false);
+        btn4.setClickable(false);
+        btn5.setClickable(false);
+        btn6.setClickable(false);
+        btn7.setClickable(false);
+        btn8.setClickable(false);
+        btn9.setClickable(false);
+
+        btnAC.setText(getString(R.string.clear));
+
     }
 
 
@@ -697,6 +791,8 @@ public class Calculadora extends AppCompatActivity{
             operador = "exp";
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
+            btnDiezElevado.setClickable(false);
+            btnElevar.setClickable(false);
         }
 
     }
@@ -780,6 +876,9 @@ public class Calculadora extends AppCompatActivity{
         btnDiezElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
         btnPunto.setClickable(true);
         btnIgual.setClickable(true);
+        btnAC.setText(getString(R.string.clear));
+        btnElevar.setClickable(false);
+        btnEulerElevado.setClickable(false);
 
     }
 
@@ -889,6 +988,8 @@ public class Calculadora extends AppCompatActivity{
         operador = "eelevado";
         btnEulerElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
         btnIgual.setClickable(true);
+        btnDiezElevado.setClickable(false);
+        btnElevar.setClickable(false);
     }
 
     public void onClickbtnlogaritmo(View view) {
