@@ -1,410 +1,513 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
 
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+    <TextView
+        android:id="@+id/resultados"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="end"
+        android:layout_weight="2"
+        android:fontFamily="sans-serif"
+        android:maxLength="16"
+        android:textAlignment="textEnd"
+        android:background="@color/black"
+        android:textColor="@android:color/background_light"
+        android:textSize="50sp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        android:orientation="vertical"
-        android:weightSum="10">
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="horizontal"
+        android:baselineAligned="true">
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id">
-        </com.google.android.gms.ads.AdView>
-
-        <TextView
-            android:id="@+id/resultados"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="end"
-            android:layout_weight="2"
-            android:fontFamily="sans-serif"
-            android:maxLength="16"
-            android:textAlignment="textEnd"
-            android:background="@color/black"
-            android:textColor="@android:color/background_light"
-            android:textSize="50dp" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-
-                <Button
-                    android:id="@+id/elevadoaMenosuno"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnelevadoaMenosuno"
-                    android:text="x^-1"/>
-
-                <Button
-                    android:id="@+id/degree"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtndegree"
-                    android:text="deg"
-                    android:background="@drawable/custom_shape_button_pressed"/>
-
-                <Button
-                    android:id="@+id/radianes"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnradianes"
-                    android:text="rad"/>
-
-                <Button
-                    android:id="@+id/pi"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnpi"
-                    android:text="π"/>
-
-                <Button
-                    android:id="@+id/absoluto"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnabsoluto"
-                    android:text="abs"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-
-                <Button
-                    android:id="@+id/alcuadrado"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnalcuadrado"
-                    android:text="x^2"/>
-
-                <Button
-                    android:id="@+id/hipotenusa"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnhipotenusa"
-                    android:text="hyp"/>
-
-                <Button
-                    android:id="@+id/potencia"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnpotencia"
-                    android:text="^"/>
-
-
-                <Button
-                    android:id="@+id/e"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtne"
-                    android:text="e"/>
-
-
-                <Button
-                    android:id="@+id/exponente"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnexponente"
-                    android:text="exp"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-
-                <Button
-                    android:id="@+id/alcubo"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnalcubo"
-                    android:text="x^3"/>
-
-                <Button
-                    android:id="@+id/seno"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnseno"
-                    android:text="sin"/>
-
-                <Button
-                    android:id="@+id/coseno"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtncoseno"
-                    android:text="cos"/>
-
-                <Button
-                    android:id="@+id/tangente"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtntangente"
-                    android:text="tan"/>
-
-
-
-                <Button
-                    android:id="@+id/diezelevado"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtndiezelevado"
-                    android:text="10^x"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-
-                <Button
-                    android:id="@+id/xfactorial"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnxfactorial"
-                    android:text="x!"/>
-
-                <Button
-                    android:id="@+id/senoinverso"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnsenoinverso"
-                    android:text="sin^-1"/>
-
-                <Button
-                    android:id="@+id/cosenoinverso"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtncosenoinverso"
-                    android:text="cos^-1"/>
-
-                <Button
-                    android:id="@+id/tangenteinverso"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtntangenteinverso"
-                    android:text="tan^-1"/>
-
-
-                <Button
-                    android:id="@+id/eelevado"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtneelevado"
-                    android:text="e^x"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-                <Button
-                    android:id="@+id/logaritmo"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnlogaritmo"
-                    android:text="log"/>
-
-                <Button
-                    android:id="@+id/borrar"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnAC"
-                    android:text="AC"/>
-
-                <Button
-                    android:id="@+id/n7"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn7"
-                    android:text="7"/>
-
-                <Button
-                    android:id="@+id/n4"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn4"
-                    android:text="4"/>
-
-                <Button
-                    android:id="@+id/n1"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn1"
-                    android:text="1"/>
-
-                <Button
-                    android:id="@+id/n0"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn0"
-                    android:text="0"/>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-                <Button
-                    android:id="@+id/logaritmonatural"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnlogaritmonatural"
-                    android:text="ln"/>
-
-                <Button
-                    android:id="@+id/inverso"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnInverso"
-                    android:text="+/-"/>
-
-                <Button
-                    android:id="@+id/n8"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn8"
-                    android:text="8"/>
-
-                <Button
-                    android:id="@+id/n5"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn5"
-                    android:text="5"/>
-
-                <Button
-                    android:id="@+id/n2"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn2"
-                    android:text="2"/>
-
-                <Button
-                    android:id="@+id/punto"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnPunto"
-                    android:text="."/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-                <Button
-                    android:id="@+id/raizcubica"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnraizcubica"
-                    android:text="3√"/>
-
-                <Button
-                    android:id="@+id/raiz"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnRaiz"
-                    android:text="√"/>
-
-                <Button
-                    android:id="@+id/n9"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn9"
-                    android:text="9"/>
-
-                <Button
-                    android:id="@+id/n6"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn6"
-                    android:text="6"/>
-
-                <Button
-                    android:id="@+id/n3"
-                    style="@style/numberStyleLand"
-                    android:onClick="onClickbtn3"
-                    android:text="3"/>
-
-                <Button
-                    android:id="@+id/porciento"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnporciento"
-                    android:text="%"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/black">
-
-
-                <Button
-                    android:id="@+id/calculadora"
-                    style="@style/landStyle"
-                    android:text=""
-                    android:clickable="false"/>
-
-                <Button
-                    android:id="@+id/entre"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnEntre"
-                    android:text="/"/>
-
-                <Button
-                    android:id="@+id/por"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnPor"
-                    android:text="x"/>
-
-                <Button
-                    android:id="@+id/menos"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnMenos"
-                    android:text="-"/>
-
-                <Button
-                    android:id="@+id/mas"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnMas"
-                    android:text="+"/>
-
-                <Button
-                    android:id="@+id/igual"
-                    style="@style/landStyle"
-                    android:onClick="onClickbtnIgual"
-                    android:text="="/>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/elevadoaMenosuno"
+                style="@style/landStyle"
+                android:onClick="onClickbtnelevadoaMenosuno"
+                android:text="@string/elevado_a_menos_uno"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/alcuadrado"
+                app:layout_constraintBottom_toTopOf="@id/degree"/>
+
+            <TextView
+                android:id="@+id/degree"
+                style="@style/landStyle"
+                android:onClick="onClickbtndegree"
+                android:text="@string/degree"
+                android:background="@drawable/custom_shape_button_pressed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/elevadoaMenosuno"
+                app:layout_constraintBottom_toTopOf="@id/radianes"
+                app:layout_constraintEnd_toStartOf="@id/hipotenusa"/>
+
+            <TextView
+                android:id="@+id/radianes"
+                style="@style/landStyle"
+                android:onClick="onClickbtnradianes"
+                android:text="@string/radianes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/degree"
+                app:layout_constraintBottom_toTopOf="@id/pi"
+                app:layout_constraintEnd_toStartOf="@id/potencia"/>
+
+            <TextView
+                android:id="@+id/pi"
+                style="@style/landStyle"
+                android:onClick="onClickbtnpi"
+                android:text="@string/pi"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radianes"
+                app:layout_constraintEnd_toStartOf="@id/e"
+                app:layout_constraintBottom_toTopOf="@id/absoluto"/>
+
+            <TextView
+                android:id="@+id/absoluto"
+                style="@style/landStyle"
+                android:onClick="onClickbtnabsoluto"
+                android:text="@string/absoluto"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pi"
+                app:layout_constraintEnd_toStartOf="@id/exponente"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            <TextView
+                android:id="@+id/alcuadrado"
+                style="@style/landStyle"
+                android:onClick="onClickbtnalcuadrado"
+                android:text="@string/al_cuadrado"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/elevadoaMenosuno"
+                app:layout_constraintEnd_toStartOf="@id/alcubo"
+                app:layout_constraintBottom_toTopOf="@id/hipotenusa"/>
+
+            <TextView
+                android:id="@+id/hipotenusa"
+                style="@style/landStyle"
+                android:onClick="onClickbtnhipotenusa"
+                android:text="@string/hipotenusa"
+                app:layout_constraintStart_toEndOf="@id/degree"
+                app:layout_constraintTop_toBottomOf="@id/alcuadrado"
+                app:layout_constraintEnd_toStartOf="@id/seno"
+                app:layout_constraintBottom_toTopOf="@id/potencia"/>
+
+            <TextView
+                android:id="@+id/potencia"
+                style="@style/landStyle"
+                android:onClick="onClickbtnpotencia"
+                android:text="@string/potencia"
+                app:layout_constraintStart_toEndOf="@id/radianes"
+                app:layout_constraintTop_toBottomOf="@id/hipotenusa"
+                app:layout_constraintEnd_toStartOf="@id/coseno"
+                app:layout_constraintBottom_toTopOf="@id/e"/>
+
+
+            <TextView
+                android:id="@+id/e"
+                style="@style/landStyle"
+                android:onClick="onClickbtne"
+                android:text="@string/e"
+                app:layout_constraintStart_toEndOf="@id/pi"
+                app:layout_constraintTop_toBottomOf="@id/potencia"
+                app:layout_constraintEnd_toStartOf="@id/tangente"
+                app:layout_constraintBottom_toTopOf="@id/exponente"/>
+
+
+            <TextView
+                android:id="@+id/exponente"
+                style="@style/landStyle"
+                android:onClick="onClickbtnexponente"
+                android:text="@string/exponente"
+                app:layout_constraintStart_toEndOf="@id/absoluto"
+                app:layout_constraintTop_toBottomOf="@id/e"
+                app:layout_constraintEnd_toStartOf="@id/diezelevado"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            <TextView
+                android:id="@+id/alcubo"
+                style="@style/landStyle"
+                android:onClick="onClickbtnalcubo"
+                android:text="@string/al_cubo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/alcuadrado"
+                app:layout_constraintEnd_toStartOf="@id/xfactorial"
+                app:layout_constraintBottom_toTopOf="@id/seno"/>
+
+            <TextView
+                android:id="@+id/seno"
+                style="@style/landStyle"
+                android:onClick="onClickbtnseno"
+                android:text="@string/seno"
+                app:layout_constraintStart_toEndOf="@id/hipotenusa"
+                app:layout_constraintTop_toBottomOf="@id/alcubo"
+                app:layout_constraintEnd_toStartOf="@id/senoinverso"
+                app:layout_constraintBottom_toTopOf="@id/coseno"/>
+
+            <TextView
+                android:id="@+id/coseno"
+                style="@style/landStyle"
+                android:onClick="onClickbtncoseno"
+                android:text="@string/coseno"
+                app:layout_constraintStart_toEndOf="@id/potencia"
+                app:layout_constraintTop_toBottomOf="@id/seno"
+                app:layout_constraintEnd_toStartOf="@id/cosenoinverso"
+                app:layout_constraintBottom_toTopOf="@id/tangente"/>
+
+            <TextView
+                android:id="@+id/tangente"
+                style="@style/landStyle"
+                android:onClick="onClickbtntangente"
+                android:text="@string/tangente"
+                app:layout_constraintStart_toEndOf="@id/e"
+                app:layout_constraintTop_toBottomOf="@id/coseno"
+                app:layout_constraintEnd_toStartOf="@id/tangenteinverso"
+                app:layout_constraintBottom_toTopOf="@id/diezelevado"/>
+
+            <TextView
+                android:id="@+id/diezelevado"
+                style="@style/landStyle"
+                android:onClick="onClickbtndiezelevado"
+                android:text="@string/dies_elevado"
+                app:layout_constraintStart_toEndOf="@id/exponente"
+                app:layout_constraintTop_toBottomOf="@id/tangente"
+                app:layout_constraintEnd_toStartOf="@id/eelevado"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            <TextView
+                android:id="@+id/xfactorial"
+                style="@style/landStyle"
+                android:onClick="onClickbtnxfactorial"
+                android:text="@string/x_factorial"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/alcubo"
+                app:layout_constraintBottom_toTopOf="@id/senoinverso"
+                app:layout_constraintEnd_toStartOf="@id/logaritmo"/>
+
+            <TextView
+                android:id="@+id/senoinverso"
+                style="@style/landStyle"
+                android:onClick="onClickbtnsenoinverso"
+                android:text="@string/seno_inverso"
+                app:layout_constraintStart_toEndOf="@id/seno"
+                app:layout_constraintTop_toBottomOf="@id/xfactorial"
+                app:layout_constraintEnd_toStartOf="@id/n7"
+                app:layout_constraintBottom_toTopOf="@id/cosenoinverso"/>
+
+            <TextView
+                android:id="@+id/cosenoinverso"
+                style="@style/landStyle"
+                android:onClick="onClickbtncosenoinverso"
+                android:text="@string/coseno_inverso"
+                app:layout_constraintStart_toEndOf="@id/coseno"
+                app:layout_constraintTop_toBottomOf="@id/senoinverso"
+                app:layout_constraintEnd_toStartOf="@id/n4"
+                app:layout_constraintBottom_toTopOf="@id/tangenteinverso"/>
+
+            <TextView
+                android:id="@+id/tangenteinverso"
+                style="@style/landStyle"
+                android:onClick="onClickbtntangenteinverso"
+                android:text="@string/tangente_inverso"
+                app:layout_constraintStart_toEndOf="@id/tangente"
+                app:layout_constraintTop_toBottomOf="@id/cosenoinverso"
+                app:layout_constraintEnd_toStartOf="@id/n1"
+                app:layout_constraintBottom_toTopOf="@id/eelevado"/>
+
+
+            <TextView
+                android:id="@+id/eelevado"
+                style="@style/landStyle"
+                android:onClick="onClickbtneelevado"
+                android:text="@string/e_elevado"
+                app:layout_constraintStart_toEndOf="@id/diezelevado"
+                app:layout_constraintTop_toBottomOf="@id/tangenteinverso"
+                app:layout_constraintEnd_toStartOf="@id/n0"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/logaritmo"
+                style="@style/landStyle"
+                android:onClick="onClickbtnlogaritmo"
+                android:text="@string/logaritmo"
+                app:layout_constraintStart_toEndOf="@id/xfactorial"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/logaritmonatural"
+                app:layout_constraintBottom_toTopOf="@id/borrar"/>
+
+            <TextView
+                android:id="@+id/borrar"
+                style="@style/landStyle"
+                android:onClick="onClickbtnAC"
+                android:text="@string/clear_all"
+                app:layout_constraintStart_toEndOf="@id/xfactorial"
+                app:layout_constraintTop_toBottomOf="@id/logaritmo"
+                app:layout_constraintEnd_toStartOf="@id/inverso"
+                app:layout_constraintBottom_toTopOf="@id/n7"/>
+
+            <TextView
+                android:id="@+id/n7"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn7"
+                android:text="@string/numberSeven"
+                app:layout_constraintStart_toEndOf="@id/senoinverso"
+                app:layout_constraintBottom_toTopOf="@id/n4"
+                app:layout_constraintEnd_toStartOf="@id/n8"
+                app:layout_constraintTop_toBottomOf="@id/borrar"/>
+
+            <TextView
+                android:id="@+id/n4"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn4"
+                android:text="@string/numberFour"
+                app:layout_constraintStart_toEndOf="@id/cosenoinverso"
+                app:layout_constraintTop_toBottomOf="@id/n7"
+                app:layout_constraintEnd_toStartOf="@id/n5"
+                app:layout_constraintBottom_toTopOf="@id/n1"/>
+
+            <TextView
+                android:id="@+id/n1"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn1"
+                android:text="@string/numberOne"
+                app:layout_constraintStart_toEndOf="@id/tangenteinverso"
+                app:layout_constraintTop_toBottomOf="@id/n4"
+                app:layout_constraintEnd_toStartOf="@id/n2"
+                app:layout_constraintBottom_toTopOf="@id/n0"/>
+
+            <TextView
+                android:id="@+id/n0"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn0"
+                android:text="@string/numberZero"
+                app:layout_constraintStart_toEndOf="@id/eelevado"
+                app:layout_constraintTop_toBottomOf="@id/n1"
+                app:layout_constraintEnd_toStartOf="@id/punto"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            <TextView
+                android:id="@+id/logaritmonatural"
+                style="@style/landStyle"
+                android:onClick="onClickbtnlogaritmonatural"
+                android:text="@string/logaritmo_natural"
+                app:layout_constraintStart_toEndOf="@id/logaritmo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/raizcubica"
+                app:layout_constraintBottom_toTopOf="@id/inverso"/>
+
+            <TextView
+                android:id="@+id/inverso"
+                style="@style/landStyle"
+                android:onClick="onClickbtnInverso"
+                android:text="@string/plus_minus"
+                app:layout_constraintStart_toEndOf="@id/borrar"
+                app:layout_constraintTop_toBottomOf="@id/logaritmonatural"
+                app:layout_constraintEnd_toStartOf="@id/raiz"
+                app:layout_constraintBottom_toTopOf="@id/n8"/>
+
+            <TextView
+                android:id="@+id/n8"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn8"
+                android:text="@string/numberEight"
+                app:layout_constraintStart_toEndOf="@id/n7"
+                app:layout_constraintTop_toBottomOf="@id/inverso"
+                app:layout_constraintEnd_toStartOf="@id/n9"
+                app:layout_constraintBottom_toTopOf="@id/n5"/>
+
+            <TextView
+                android:id="@+id/n5"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn5"
+                android:text="@string/numberFive"
+                app:layout_constraintStart_toEndOf="@id/n4"
+                app:layout_constraintTop_toBottomOf="@id/n8"
+                app:layout_constraintEnd_toStartOf="@id/n6"
+                app:layout_constraintBottom_toTopOf="@id/n2"/>
+
+            <TextView
+                android:id="@+id/n2"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn2"
+                android:text="@string/numberTwo"
+                app:layout_constraintStart_toEndOf="@id/n1"
+                app:layout_constraintTop_toBottomOf="@id/n5"
+                app:layout_constraintEnd_toStartOf="@id/n3"
+                app:layout_constraintBottom_toTopOf="@id/punto"/>
+
+            <TextView
+                android:id="@+id/punto"
+                style="@style/landStyle"
+                android:onClick="onClickbtnPunto"
+                android:text="@string/punto"
+                app:layout_constraintStart_toEndOf="@id/n0"
+                app:layout_constraintTop_toBottomOf="@id/n2"
+                app:layout_constraintEnd_toStartOf="@id/porciento"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            <TextView
+                android:id="@+id/raizcubica"
+                style="@style/landStyle"
+                android:onClick="onClickbtnraizcubica"
+                android:text="@string/raiz_cubica"
+                app:layout_constraintStart_toEndOf="@id/logaritmonatural"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/random"
+                app:layout_constraintBottom_toTopOf="@id/raiz"/>
+
+            <TextView
+                android:id="@+id/raiz"
+                style="@style/landStyle"
+                android:onClick="onClickbtnRaiz"
+                android:text="@string/raiz"
+                app:layout_constraintStart_toEndOf="@id/inverso"
+                app:layout_constraintTop_toBottomOf="@id/raizcubica"
+                app:layout_constraintEnd_toStartOf="@id/entre"
+                app:layout_constraintBottom_toTopOf="@id/n9"/>
+
+            <TextView
+                android:id="@+id/n9"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn9"
+                android:text="@string/numberNine"
+                app:layout_constraintStart_toEndOf="@id/n8"
+                app:layout_constraintTop_toBottomOf="@id/raiz"
+                app:layout_constraintEnd_toStartOf="@id/por"
+                app:layout_constraintBottom_toTopOf="@id/n6"/>
+
+            <TextView
+                android:id="@+id/n6"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn6"
+                android:text="@string/numberSix"
+                app:layout_constraintStart_toEndOf="@id/n5"
+                app:layout_constraintTop_toBottomOf="@id/n9"
+                app:layout_constraintEnd_toStartOf="@id/menos"
+                app:layout_constraintBottom_toTopOf="@id/n3"/>
+
+            <TextView
+                android:id="@+id/n3"
+                style="@style/numberStyleLand"
+                android:onClick="onClickbtn3"
+                android:text="@string/numberThree"
+                app:layout_constraintStart_toEndOf="@id/n2"
+                app:layout_constraintTop_toBottomOf="@id/n6"
+                app:layout_constraintEnd_toStartOf="@id/mas"
+                app:layout_constraintBottom_toTopOf="@id/porciento"/>
+
+            <TextView
+                android:id="@+id/porciento"
+                style="@style/landStyle"
+                android:onClick="onClickbtnporciento"
+                android:text="@string/porciento"
+                app:layout_constraintStart_toEndOf="@id/punto"
+                app:layout_constraintTop_toBottomOf="@id/n3"
+                app:layout_constraintEnd_toStartOf="@id/igual"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+            <TextView
+                android:id="@+id/random"
+                style="@style/landStyle"
+                android:onClick="onClickbtnRandom"
+                android:text="@string/random"
+                app:layout_constraintStart_toEndOf="@id/raizcubica"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/entre"/>
+
+            <TextView
+                android:id="@+id/entre"
+                style="@style/landStyle"
+                android:onClick="onClickbtnEntre"
+                android:text="@string/division"
+                app:layout_constraintStart_toEndOf="@id/raiz"
+                app:layout_constraintTop_toBottomOf="@id/random"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/por"/>
+
+            <TextView
+                android:id="@+id/por"
+                style="@style/landStyle"
+                android:onClick="onClickbtnPor"
+                android:text="@string/multiply"
+                app:layout_constraintStart_toEndOf="@id/n9"
+                app:layout_constraintTop_toBottomOf="@id/entre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/menos"/>
+
+            <TextView
+                android:id="@+id/menos"
+                style="@style/landStyle"
+                android:onClick="onClickbtnMenos"
+                android:text="@string/minus"
+                app:layout_constraintStart_toEndOf="@id/n6"
+                app:layout_constraintTop_toBottomOf="@id/por"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/mas"/>
+
+            <TextView
+                android:id="@+id/mas"
+                style="@style/landStyle"
+                android:onClick="onClickbtnMas"
+                android:text="@string/plus"
+                app:layout_constraintStart_toEndOf="@id/n3"
+                app:layout_constraintTop_toBottomOf="@id/menos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/igual"/>
+
+            <TextView
+                android:id="@+id/igual"
+                style="@style/landStyle"
+                android:onClick="onClickbtnIgual"
+                android:text="@string/igual"
+                app:layout_constraintStart_toEndOf="@id/porciento"
+                app:layout_constraintTop_toBottomOf="@id/mas"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     </LinearLayout>
 
 
+</LinearLayout>
 
 
-</RelativeLayout>

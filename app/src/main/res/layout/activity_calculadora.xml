@@ -3,11 +3,10 @@
 
 
 <LinearLayout
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="com.example.aar92_22.calculadoracientifica.Calculadora"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,10 +17,8 @@
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id">
+        app:adSize="SMART_BANNER"
+        app:adUnitId="@string/banner_ad_unit_id">
     </com.google.android.gms.ads.AdView>
 
 
@@ -39,192 +36,226 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:fontFamily="sans-serif-smallcaps"
-            android:maxLength="9"
+            android:maxLength="12"
+            android:autoSizeTextType="uniform"
             android:textAlignment="textEnd"
             android:background="@color/black"
             android:textColor="@android:color/background_light"
-            android:textSize="70sp" />
+            android:textSize="60sp" />
 
 
     </LinearLayout>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="7"
-        android:weightSum="4">
+        android:layout_weight="7">
 
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@color/black">
-
-
-            <Button
+            <TextView
                 android:id="@+id/borrar"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnAC"
-                android:text="AC"/>
+                android:text="@string/clear_all"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/n7"
+                app:layout_constraintEnd_toStartOf="@id/inverso"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n7"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn7"
-                android:text="7"/>
+                android:text="@string/numberSeven"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/borrar"
+                app:layout_constraintBottom_toTopOf="@id/n4"
+                app:layout_constraintEnd_toStartOf="@id/n8"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n4"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn4"
-                android:text="4"/>
+                android:text="@string/numberFour"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/n7"
+                app:layout_constraintBottom_toTopOf="@id/n1"
+                app:layout_constraintEnd_toStartOf="@id/n5"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n1"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn1"
-                android:text="1"/>
+                android:text="@string/numberOne"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/n4"
+                app:layout_constraintBottom_toTopOf="@id/n0"
+                app:layout_constraintEnd_toStartOf="@id/n2"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n0"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn0"
-                android:text="0"/>
+                android:text="@string/numberZero"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/n1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/punto"/>
 
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@color/black">
-
-
-            <Button
+            <TextView
                 android:id="@+id/inverso"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnInverso"
-                android:text="+/-"/>
+                android:text="@string/plus_minus"
+                app:layout_constraintStart_toEndOf="@id/borrar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/n8"
+                app:layout_constraintEnd_toStartOf="@id/raiz"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n8"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn8"
-                android:text="8"/>
+                android:text="@string/numberEight"
+                app:layout_constraintStart_toEndOf="@id/n7"
+                app:layout_constraintTop_toBottomOf="@id/inverso"
+                app:layout_constraintBottom_toTopOf="@id/n5"
+                app:layout_constraintEnd_toStartOf="@id/n9"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n5"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn5"
-                android:text="5"/>
+                android:text="@string/numberFive"
+                app:layout_constraintStart_toEndOf="@id/n4"
+                app:layout_constraintTop_toBottomOf="@id/n8"
+                app:layout_constraintBottom_toTopOf="@id/n2"
+                app:layout_constraintEnd_toStartOf="@id/n6"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n2"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn2"
-                android:text="2"/>
+                android:text="@string/numberTwo"
+                app:layout_constraintStart_toEndOf="@id/n1"
+                app:layout_constraintTop_toBottomOf="@id/n5"
+                app:layout_constraintBottom_toTopOf="@id/punto"
+                app:layout_constraintEnd_toStartOf="@id/n3"/>
 
-            <Button
+            <TextView
                 android:id="@+id/punto"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnPunto"
-                android:text="."/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@color/black">
+                android:text="@string/punto"
+                app:layout_constraintStart_toEndOf="@id/n0"
+                app:layout_constraintTop_toBottomOf="@id/n2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/porciento"/>
 
 
-            <Button
+            <TextView
                 android:id="@+id/raiz"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnRaiz"
-                android:text="√"/>
+                android:text="@string/raiz"
+                app:layout_constraintStart_toEndOf="@id/inverso"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/n9"
+                app:layout_constraintEnd_toStartOf="@id/entre"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n9"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn9"
-                android:text="9"/>
+                android:text="@string/numberNine"
+                app:layout_constraintStart_toEndOf="@id/n8"
+                app:layout_constraintTop_toBottomOf="@id/raiz"
+                app:layout_constraintBottom_toTopOf="@id/n6"
+                app:layout_constraintEnd_toStartOf="@id/por"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n6"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn6"
-                android:text="6"/>
+                android:text="@string/numberSix"
+                app:layout_constraintStart_toEndOf="@id/n5"
+                app:layout_constraintTop_toBottomOf="@id/n8"
+                app:layout_constraintBottom_toTopOf="@id/n3"
+                app:layout_constraintEnd_toStartOf="@id/menos"/>
 
-            <Button
+            <TextView
                 android:id="@+id/n3"
                 style="@style/numberStylePort"
                 android:onClick="onClickbtn3"
-                android:text="3"/>
+                android:text="@string/numberThree"
+                app:layout_constraintStart_toEndOf="@id/n2"
+                app:layout_constraintTop_toBottomOf="@id/n6"
+                app:layout_constraintBottom_toTopOf="@id/porciento"
+                app:layout_constraintEnd_toStartOf="@id/mas"/>
 
-            <Button
+            <TextView
                 android:id="@+id/porciento"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnporciento"
-                android:text="%"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@color/black">
+                android:text="@string/porciento"
+                app:layout_constraintStart_toEndOf="@id/punto"
+                app:layout_constraintTop_toBottomOf="@id/n3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/igual"/>
 
 
-
-            <Button
+            <TextView
                 android:id="@+id/entre"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnEntre"
-                android:text="/"/>
+                android:text="@string/division"
+                app:layout_constraintStart_toEndOf="@id/raiz"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/por"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <Button
+            <TextView
                 android:id="@+id/por"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnPor"
-                android:text="x"/>
+                android:text="@string/multiply"
+                app:layout_constraintStart_toEndOf="@id/n9"
+                app:layout_constraintTop_toBottomOf="@id/entre"
+                app:layout_constraintBottom_toTopOf="@id/menos"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <Button
+            <TextView
                 android:id="@+id/menos"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnMenos"
-                android:text="-"/>
+                android:text="@string/minus"
+                app:layout_constraintStart_toEndOf="@id/n6"
+                app:layout_constraintTop_toBottomOf="@id/por"
+                app:layout_constraintBottom_toTopOf="@id/mas"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <Button
+            <TextView
                 android:id="@+id/mas"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnMas"
-                android:text="+"/>
+                android:text="@string/plus"
+                app:layout_constraintStart_toEndOf="@id/n3"
+                app:layout_constraintTop_toBottomOf="@id/menos"
+                app:layout_constraintBottom_toTopOf="@id/igual"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <Button
+            <TextView
                 android:id="@+id/igual"
                 style="@style/signStylePort"
                 android:onClick="onClickbtnIgual"
-                android:text="="/>
+                android:text="@string/igual"
+                app:layout_constraintStart_toEndOf="@id/porciento"
+                app:layout_constraintTop_toBottomOf="@id/mas"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-
-        </LinearLayout>
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

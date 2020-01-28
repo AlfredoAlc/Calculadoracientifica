@@ -1,24 +1,29 @@
 package com.example.aar92_22.calculadoracientifica;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
+import java.util.ArrayList;
 
 
 public class Calculadora extends AppCompatActivity{
 
     TextView total;
 
-    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnPunto;
-    Button btnAC, btnInverso, btnRaiz, btnEntre, btnPor, btnMenos, btnMas, btnIgual, btnPorcentaje;
+    TextView btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnPunto;
+    TextView btnAC, btnInverso, btnRaiz, btnEntre, btnPor, btnMenos, btnMas, btnIgual, btnPorcentaje;
 
     private static final String TOTAL_TAG = "total";
 
     public static Double resultado;
+
+    public static Double percentageValue = .01;
 
     int resultadoEntero, invertirEntero;
 
@@ -27,23 +32,26 @@ public class Calculadora extends AppCompatActivity{
 
     String operador;
 
-    boolean presionado = true;
+    boolean basicOperationClicked = true;
 
 
     //Variables calculadora cientifica
 
-    Button btnxInverso, btnxAlCuadrado, btnxAlCubo, btnxFactorial;
-    Button btnPi, btnAbsoluto, btnDeg;
-    Button btnHipotenusa, btnElevar, btnEuler, btnExp;
-    Button btnSeno, btnCos, btnTan, btnDiezElevado;
-    Button btnSenoInverso, btnCosInverso, btnTanInverso, btnRad, btnEulerElevado;
-    Button btnLog, btnLn, btnRaizCubica;
+    TextView btnxInverso, btnxAlCuadrado, btnxAlCubo, btnxFactorial;
+    TextView btnPi, btnAbsoluto, btnDeg;
+    TextView btnHipotenusa, btnElevar, btnEuler, btnExp;
+    TextView btnSeno, btnCos, btnTan, btnDiezElevado;
+    TextView btnSenoInverso, btnCosInverso, btnTanInverso, btnRad, btnEulerElevado;
+    TextView btnLog, btnLn, btnRaizCubica;
     String grados = "deg";
 
-    final double pi = Math.PI;
+
     final double e = Math.E;
 
-
+    ArrayList<String> initialNumber;
+    String showNumber = "";
+    String decimal = "";
+    boolean puntoClicked = false;
 
 
     @Override
@@ -52,58 +60,58 @@ public class Calculadora extends AppCompatActivity{
         setContentView(R.layout.activity_calculadora);
 
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        btn0 = (Button) findViewById(R.id.n0);
-        btn1 = (Button) findViewById(R.id.n1);
-        btn2 = (Button) findViewById(R.id.n2);
-        btn3 = (Button) findViewById(R.id.n3);
-        btn4 = (Button) findViewById(R.id.n4);
-        btn5 = (Button) findViewById(R.id.n5);
-        btn6 = (Button) findViewById(R.id.n6);
-        btn7 = (Button) findViewById(R.id.n7);
-        btn8 = (Button) findViewById(R.id.n8);
-        btn9 = (Button) findViewById(R.id.n9);
-        btnPunto = (Button) findViewById(R.id.punto);
-        btnAC = (Button) findViewById(R.id.borrar);
-        btnInverso = (Button) findViewById(R.id.inverso);
-        btnRaiz = (Button) findViewById(R.id.raiz);
-        btnEntre = (Button) findViewById(R.id.entre);
-        btnPor = (Button) findViewById(R.id.por);
-        btnMenos = (Button) findViewById(R.id.menos);
-        btnMas = (Button) findViewById(R.id.mas);
-        btnIgual = (Button) findViewById(R.id.igual);
-        btnPorcentaje = (Button) findViewById(R.id.porciento);
-        btnxInverso = (Button) findViewById(R.id.elevadoaMenosuno);
-        btnxAlCuadrado = (Button) findViewById(R.id.alcuadrado);
-        btnxAlCubo = (Button) findViewById(R.id.alcubo);
-        btnxFactorial = (Button) findViewById(R.id.xfactorial);
-        btnPi = (Button) findViewById(R.id.pi);
-        btnHipotenusa = (Button) findViewById(R.id.hipotenusa);
-        btnElevar = (Button) findViewById(R.id.potencia);
-        btnEuler = (Button) findViewById(R.id.e);
-        btnExp = (Button) findViewById(R.id.exponente);
-        btnSeno = (Button) findViewById(R.id.seno);
-        btnCos = (Button) findViewById(R.id.coseno);
-        btnTan = (Button) findViewById(R.id.tangente);
-        btnDiezElevado = (Button) findViewById(R.id.diezelevado);
-        btnSenoInverso = (Button) findViewById(R.id.senoinverso);
-        btnCosInverso = (Button) findViewById(R.id.cosenoinverso);
-        btnTanInverso = (Button) findViewById(R.id.tangenteinverso);
-        btnRad = (Button) findViewById(R.id.radianes);
-        btnEulerElevado = (Button) findViewById(R.id.eelevado);
-        btnLog = (Button) findViewById(R.id.logaritmo);
-        btnLn = (Button) findViewById(R.id.logaritmonatural);
-        btnRaizCubica = (Button) findViewById(R.id.raizcubica);
-        btnDeg = (Button) findViewById(R.id.degree);
-        btnAbsoluto = (Button) findViewById(R.id.absoluto);
+        btn0 = findViewById(R.id.n0);
+        btn1 = findViewById(R.id.n1);
+        btn2 = findViewById(R.id.n2);
+        btn3 = findViewById(R.id.n3);
+        btn4 = findViewById(R.id.n4);
+        btn5 = findViewById(R.id.n5);
+        btn6 = findViewById(R.id.n6);
+        btn7 = findViewById(R.id.n7);
+        btn8 = findViewById(R.id.n8);
+        btn9 = findViewById(R.id.n9);
+        btnPunto = findViewById(R.id.punto);
+        btnAC = findViewById(R.id.borrar);
+        btnInverso = findViewById(R.id.inverso);
+        btnRaiz = findViewById(R.id.raiz);
+        btnEntre = findViewById(R.id.entre);
+        btnPor = findViewById(R.id.por);
+        btnMenos = findViewById(R.id.menos);
+        btnMas = findViewById(R.id.mas);
+        btnIgual = findViewById(R.id.igual);
+        btnPorcentaje = findViewById(R.id.porciento);
+        btnxInverso = findViewById(R.id.elevadoaMenosuno);
+        btnxAlCuadrado = findViewById(R.id.alcuadrado);
+        btnxAlCubo = findViewById(R.id.alcubo);
+        btnxFactorial = findViewById(R.id.xfactorial);
+        btnPi = findViewById(R.id.pi);
+        btnHipotenusa = findViewById(R.id.hipotenusa);
+        btnElevar = findViewById(R.id.potencia);
+        btnEuler = findViewById(R.id.e);
+        btnExp = findViewById(R.id.exponente);
+        btnSeno = findViewById(R.id.seno);
+        btnCos = findViewById(R.id.coseno);
+        btnTan = findViewById(R.id.tangente);
+        btnDiezElevado = findViewById(R.id.diezelevado);
+        btnSenoInverso = findViewById(R.id.senoinverso);
+        btnCosInverso = findViewById(R.id.cosenoinverso);
+        btnTanInverso = findViewById(R.id.tangenteinverso);
+        btnRad = findViewById(R.id.radianes);
+        btnEulerElevado = findViewById(R.id.eelevado);
+        btnLog = findViewById(R.id.logaritmo);
+        btnLn = findViewById(R.id.logaritmonatural);
+        btnRaizCubica = findViewById(R.id.raizcubica);
+        btnDeg = findViewById(R.id.degree);
+        btnAbsoluto = findViewById(R.id.absoluto);
 
 
 
 
-        total = (TextView) findViewById(R.id.resultados);
+        total = findViewById(R.id.resultados);
 
 
 
@@ -112,6 +120,10 @@ public class Calculadora extends AppCompatActivity{
             total.setText(numberDisplayed);
         }
 
+
+        initialNumber = new ArrayList<>();
+
+        btnIgual.setClickable(false);
 
 
     }
@@ -129,75 +141,203 @@ public class Calculadora extends AppCompatActivity{
 
 
     public void onClickbtn0(View view){
-        total.setText(total.getText() + "0");
+
+        if(initialNumber.isEmpty() && !puntoClicked){
+            initialNumber.add("0");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }
+        else{
+            if(puntoClicked){
+                decimal += "0";
+            }else {
+                initialNumber.add("0");
+            }
+            displayNumbers();
+        }
+
     }
     public void onClickbtn1(View view){
-        total.setText(total.getText() + "1");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("1");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "1";
+            }else {
+                initialNumber.add("1");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtn2(View view){
-        total.setText(total.getText() + "2");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("2");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "2";
+            }else {
+                initialNumber.add("2");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtn3(View view){
-        total.setText(total.getText() + "3");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("3");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "3";
+            }else {
+                initialNumber.add("3");
+            }
+            displayNumbers();
+        }
+
     }
     public void onClickbtn4(View view){
-        total.setText(total.getText() + "4");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("4");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "4";
+            }else {
+                initialNumber.add("4");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtn5(View view){
-        total.setText(total.getText() + "5");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("5");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "5";
+            }else {
+                initialNumber.add("5");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtn6(View view){
-        total.setText(total.getText() + "6");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("6");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "6";
+            }else {
+                initialNumber.add("6");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtn7(View view){
-        total.setText(total.getText() + "7");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("7");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "7";
+            }else {
+                initialNumber.add("7");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtn8(View view){
-        total.setText(total.getText() + "8");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("8");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "8";
+            }else {
+                initialNumber.add("8");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtn9(View view){
-        total.setText(total.getText() + "9");
+        if(initialNumber.isEmpty()){
+            initialNumber.add("9");
+            showNumber = initialNumber.get(0);
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            if(puntoClicked){
+                decimal += "9";
+            }else {
+                initialNumber.add("9");
+            }
+            displayNumbers();
+        }
     }
     public void onClickbtnPunto(View view){
-        total.setText(total.getText() + ".");
-       // num1 = num1 + ".";
+        puntoClicked = true;
         btnPunto.setClickable(false);
+
+        if(initialNumber.isEmpty()){
+            initialNumber.add("0");
+            showNumber = initialNumber.get(0);
+            showNumber += ".";
+            total.setText(showNumber);
+            btnAC.setText(getString(R.string.clear));
+        }else{
+            displayNumbers();
+        }
+
     }
+
+
 
 
 
     public void onClickbtnMas(View view){
 
-        try {
+        if(initialNumber.size() > 0) {
 
-            if(presionado) {
+            if (basicOperationClicked) {
                 operador = "+";
                 capturaNumero();
-                presionado=false;
-            }
-            else if(operador.equals("-")){
+                basicOperationClicked = false;
+            } else if (operador.equals("-")) {
                 igual();
                 operador = "+";
-            }
-            else if(operador.equals("/")){
+            } else if (operador.equals("/")) {
                 igual();
                 operador = "+";
-            }
-            else if(operador.equals("*")){
+            } else if (operador.equals("*")) {
                 igual();
                 operador = "+";
-            }
-
-            else{
+            } else {
                 operador = "+";
                 igual();
             }
 
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
-        }
-        catch (Exception ex){
-
         }
 
     }
@@ -205,256 +345,198 @@ public class Calculadora extends AppCompatActivity{
 
 
     public void onClickbtnMenos(View view){
-        try{
 
-        if(presionado){
-        capturaNumero();
-        operador="-";
-        presionado=false;
-        }
-        else if(operador.equals("+")){
-        igual();
-        operador="-";
-        }
-        else if(operador.equals("/")){
-        igual();
-        operador="-";
-        }
-        else if(operador.equals("*")){
-        igual();
-        operador="-";
-        }
+        if(initialNumber.size() > 0) {
 
-        else{
-        operador="-";
-        igual();
-        }
+            if (basicOperationClicked) {
+                capturaNumero();
+                operador = "-";
+                basicOperationClicked = false;
+            } else if (operador.equals("+")) {
+                igual();
+                operador = "-";
+            } else if (operador.equals("/")) {
+                igual();
+                operador = "-";
+            } else if (operador.equals("*")) {
+                igual();
+                operador = "-";
+            } else {
+                operador = "-";
+                igual();
+            }
 
-        btnPunto.setClickable(true);
-        btnIgual.setClickable(true);
-        }
-        catch(Exception ex){
-
+            btnPunto.setClickable(true);
+            btnIgual.setClickable(true);
         }
     }
 
 
 
     public void onClickbtnEntre(View view){
-        try {
-            if(presionado) {
+        if(initialNumber.size() > 0) {
+
+            if (basicOperationClicked) {
                 capturaNumero();
                 operador = "/";
-                presionado=false;
-            }
-            else if(operador.equals("+")){
+                basicOperationClicked = false;
+            } else if (operador.equals("+")) {
                 igual();
                 operador = "/";
-            }
-            else if(operador.equals("-")){
+            } else if (operador.equals("-")) {
                 igual();
                 operador = "/";
-            }
-            else if(operador.equals("*")){
+            } else if (operador.equals("*")) {
                 igual();
                 operador = "/";
-            }
-
-            else{
+            } else {
                 operador = "/";
                 igual();
             }
 
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
-        }
-        catch (Exception ex){
-
         }
     }
 
 
 
     public void onClickbtnPor(View view){
-        try {
-            if(presionado) {
+        if(initialNumber.size() > 0) {
+
+            if (basicOperationClicked) {
                 capturaNumero();
                 operador = "*";
-                presionado=false;
-            }
-            else if(operador.equals("+")){
+                basicOperationClicked = false;
+            } else if (operador.equals("+")) {
                 igual();
                 operador = "*";
-            }
-            else if(operador.equals("-")){
+            } else if (operador.equals("-")) {
                 igual();
                 operador = "*";
-            }
-            else if(operador.equals("/")){
+            } else if (operador.equals("/")) {
                 igual();
                 operador = "*";
-            }
-
-            else{
+            } else {
                 operador = "*";
                 igual();
             }
 
             btnPunto.setClickable(true);
             btnIgual.setClickable(true);
-        }
-        catch (Exception ex){
-
         }
     }
 
 
 
     public void onClickbtnRaiz(View view){
-        try {
+        if(initialNumber.size() > 0) {
             capturaNumero();
 
-            if(resultado >=0) {
-                operador = "√";
-                resultado = Math.sqrt(resultado);
-                if (resultado - resultado.intValue() != 0) {
-                    total.setText(resultado.toString());
-                } else {
-                    resultadoEntero = resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            }
-            else {
-                total.setText("Math ERROR");
-                btn0.setClickable(false);
-                btn1.setClickable(false);
-                btn2.setClickable(false);
-                btn3.setClickable(false);
-                btn4.setClickable(false);
-                btn5.setClickable(false);
-                btn6.setClickable(false);
-                btn7.setClickable(false);
-                btn8.setClickable(false);
-                btn9.setClickable(false);
-                btnPunto.setClickable(false);
-                btnInverso.setClickable(false);
-                btnRaiz.setClickable(false);
-                btnEntre.setClickable(false);
-                btnPor.setClickable(false);
-                btnMenos.setClickable(false);
-                btnMas.setClickable(false);
-                btnIgual.setClickable(false);
-                btnPorcentaje.setClickable(false);
-            }
-        }
-        catch (Exception ex){
+            resultado = Math.sqrt(resultado);
+            clasifyNumberAndShow();
 
         }
+
     }
 
 
 
     public void onClickbtnIgual(View view){
 
-        try {
-            num2 = Double.parseDouble(total.getText().toString());
+        if(initialNumber.size() > 0) {
+            num2 = Double.parseDouble(getNumber());
 
-            if (operador.equals("+") || operador.equals("-") || operador.equals("*") || operador.equals("/")) {
+            switch (operador) {
 
-                Calculadora.resultado = igual();
+                case "+":
+                case "-":
+                case "*":
+                case "/":
+                    resultado = igual();
 
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-                Calculadora.resultado = 0.0;
-                presionado = true;
-                operador = "";
-
-
-            } else if (operador.equals("hipo")) {
-
-                Calculadora.resultado = Math.hypot(num1, num2);
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (operador.equals("pot")) {
-                Calculadora.resultado = Math.pow(num1, num2);
-                btnElevar.setBackgroundResource(R.drawable.custom_shape_buttons_darkgray);
+                    clasifyNumberAndShow();
+                    resultado = 0.0;
+                    basicOperationClicked = true;
+                    operador = "";
 
 
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (operador.equals("exp")) {
-                Calculadora.resultado = num1 * (Math.pow(10, num2));
-                btnExp.setBackgroundResource(R.drawable.custom_shape_buttons_darkgray);
+                    break;
+
+                case "hipo":
+                    resultado = Math.hypot(num1, num2);
+                    clasifyNumberAndShow();
+
+                    btnEuler.setClickable(true);
+                    btnPi.setClickable(true);
+
+                    break;
+
+                case "pot":
+                    resultado = Math.pow(num1, num2);
+                    btnElevar.setBackgroundResource(0);
+                    clasifyNumberAndShow();
+
+                    btnEuler.setClickable(true);
+                    btnPi.setClickable(true);
+                    btnElevar.setClickable(false);
+
+                    break;
+
+                case "exp":
+                    resultado = num1 * (Math.pow(10, num2));
+                    btnExp.setBackgroundResource(0);
+
+                    clasifyNumberAndShow();
+                    btnEuler.setClickable(true);
+                    btnPi.setClickable(true);
+                    btnExp.setClickable(false);
+
+                    break;
+
+                case "diezelevado":
+                    resultado = (Math.pow(10, num2));
+                    btnDiezElevado.setBackgroundResource(0);
+                    clasifyNumberAndShow();
+                    btnEuler.setClickable(true);
+                    btnPi.setClickable(true);
+                    btnDiezElevado.setClickable(false);
+
+                    break;
+
+                case "eelevado":
+                    resultado = (Math.pow(e, num2));
+                    btnEulerElevado.setBackgroundResource(0);
+                    clasifyNumberAndShow();
+                    btnEuler.setClickable(true);
+                    btnPi.setClickable(true);
+                    btnEulerElevado.setClickable(false);
+                    break;
 
 
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (operador.equals("diezelevado")) {
-                Calculadora.resultado = (Math.pow(10, num2));
-                btnDiezElevado.setBackgroundResource(R.drawable.custom_shape_buttons_darkgray);
-
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (operador.equals("eelevado")) {
-                Calculadora.resultado = (Math.pow(e, num2));
-                btnEulerElevado.setBackgroundResource(R.drawable.custom_shape_buttons_darkgray);
-
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
             }
 
 
-            btnIgual.setClickable(true);
+            btnIgual.setClickable(false);
             btnPunto.setClickable(true);
-            btnEuler.setClickable(true);
-            btnPi.setClickable(true);
-        } catch (Exception ex) {
 
         }
 
     }
 
     public void onClickbtnInverso(View view){
-        try {
-            parainvertir = Double.parseDouble(total.getText().toString());
-            parainvertir = parainvertir*-1;
+        if(initialNumber.size() > 0 ) {
+            parainvertir = Double.parseDouble(getNumber());
+            parainvertir = parainvertir * -1;
 
             if (parainvertir - parainvertir.intValue() != 0) {
-                total.setText(parainvertir.toString());
+                setNumber(String.valueOf(parainvertir));
+                total.setText(getNumber());
             } else {
                 invertirEntero = parainvertir.intValue();
-                total.setText(String.valueOf(invertirEntero));
+                setIntNumber(String.valueOf(invertirEntero));
+                total.setText(getNumber());
             }
-
-
-        }
-        catch (Exception ex){
 
         }
 
@@ -462,33 +544,29 @@ public class Calculadora extends AppCompatActivity{
 
 
     public void onClickbtnporciento(View view) {
-        try {
 
-            num2 = Double.parseDouble(total.getText().toString());
+        if(initialNumber.size() > 0) {
+            num2 = Double.parseDouble(getNumber());
 
-            if (operador.equals("*")) {
-                Calculadora.resultado = Calculadora.resultado * (num2 / 100);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (operador.equals("/")) {
-                Calculadora.resultado = Calculadora.resultado / (num2 / 100);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
+            Double percentage = resultado;
+            if(!basicOperationClicked){
+                percentage = percentage * num2 * percentageValue;
+            } else {
+                percentage = num2 * percentageValue;
             }
 
-            btnIgual.setClickable(false);
 
-        } catch (Exception ex) {
+
+            if (percentage - percentage.intValue() != 0) {
+                setNumber(String.valueOf(percentage));
+                total.setText(getNumber());
+
+            } else {
+                resultadoEntero = percentage.intValue();
+                setIntNumber(String.valueOf(resultadoEntero));
+                total.setText(getNumber());
+
+            }
 
         }
 
@@ -496,11 +574,368 @@ public class Calculadora extends AppCompatActivity{
 
 
     public void onClickbtnAC(View view){
-        num2 = 0.0;
-        num1 = 0.0;
-        resultado = 0.0;
-        presionado = true;
+
+        if(btnAC.getText().equals(getString(R.string.clear))){
+            basicOperationClicked = true;
+            initialNumber.clear();
+            showNumber = "";
+            decimal = "";
+            puntoClicked = false;
+            total.setText("");
+            btnAC.setText(getString(R.string.clear_all));
+        }else{
+            num2 = 0.0;
+            num1 = 0.0;
+            resultado = 0.0;
+            setBtnClickable();
+        }
+
+    }
+
+
+
+
+
+
+    ///////// Scientific Calculator buttons ///////////
+
+    public void onClickbtnelevadoaMenosuno(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+            resultado = Math.pow(resultado, -1);
+            clasifyNumberAndShow();
+            btnIgual.setClickable(false);
+        }
+
+    }
+
+    public void onClickbtndegree(View view) {
+        btnDeg.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnRad.setBackgroundResource(0);
+        grados = "deg";
+        btnDeg.setClickable(false);
+        btnRad.setClickable(true);
+        btnIgual.setClickable(false);
         total.setText("");
+    }
+
+    public void onClickbtnradianes(View view) {
+        btnRad.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnDeg.setBackgroundResource(0);
+        grados = "rad";
+        btnRad.setClickable(false);
+        btnDeg.setClickable(true);
+        btnIgual.setClickable(false);
+        total.setText("");
+    }
+
+    public void onClickbtnpi(View view) {
+        setNumber(String.valueOf(Math.PI));
+        total.setText(getNumber());
+
+        btnPi.setClickable(false);
+        btnPunto.setClickable(false);
+    }
+
+
+    public void onClickbtnabsoluto(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+            resultado = Math.abs(resultado);
+            clasifyNumberAndShow();
+            btnIgual.setClickable(false);
+
+        }
+
+
+    }
+
+    public void onClickbtnalcuadrado(View view) {
+
+        if(initialNumber.size() > 0){
+            capturaNumero();
+            resultado = Math.pow(resultado, 2);
+            clasifyNumberAndShow();
+        }
+
+    }
+
+    public void onClickbtnhipotenusa(View view) {
+        if(initialNumber.size() > 0){
+            capturaNumero2();
+            operador = "hipo";
+            btnPunto.setClickable(true);
+            btnIgual.setClickable(true);
+        }
+
+    }
+
+    public void onClickbtnpotencia(View view) {
+        if(initialNumber.size() > 0){
+            capturaNumero2();
+            btnElevar.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+            operador = "pot";
+            btnPunto.setClickable(true);
+            btnIgual.setClickable(true);
+        }
+
+    }
+
+
+    public void onClickbtne(View view) {
+        setNumber(String.valueOf(e));
+        total.setText(getNumber());
+        btnEuler.setClickable(false);
+        btnPunto.setClickable(false);
+    }
+
+
+    public void onClickbtnexponente(View view) {
+        if(initialNumber.size() > 0){
+            capturaNumero2();
+            btnExp.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+            operador = "exp";
+            btnPunto.setClickable(true);
+            btnIgual.setClickable(true);
+        }
+
+    }
+
+    public void onClickbtnalcubo(View view) {
+        if(initialNumber.size() > 0){
+            capturaNumero();
+            resultado = Math.pow(resultado, 3);
+            clasifyNumberAndShow();
+        }
+
+
+    }
+
+    public void onClickbtnseno(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+
+            switch (grados) {
+                case "rad":
+                    resultado = Math.sin(resultado);
+                    clasifyNumberAndShow();
+                    break;
+
+                case "deg":
+                    resultado = Math.toRadians(resultado);
+                    resultado = Math.sin(resultado);
+                    clasifyNumberAndShow();
+                    break;
+
+            }
+        }
+
+
+    }
+
+
+    public void onClickbtncoseno(View view) {
+        if(initialNumber.size() > 0){
+            capturaNumero();
+            switch (grados){
+                case "rad":
+                    resultado = Math.cos(resultado);
+                    clasifyNumberAndShow();
+                    break;
+
+                case "deg":
+                    resultado = Math.toRadians(resultado);
+                    resultado = Math.cos(resultado);
+                    clasifyNumberAndShow();
+                    break;
+            }
+
+        }
+
+    }
+
+    public void onClickbtntangente(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+            switch (grados) {
+
+                case "rad":
+                    resultado = Math.tan(resultado);
+                    clasifyNumberAndShow();
+                    break;
+
+
+                case "deg":
+                    resultado = Math.toRadians(resultado);
+                    resultado = Math.tan(resultado);
+                    clasifyNumberAndShow();
+                    break;
+            }
+        }
+    }
+
+
+    public void onClickbtndiezelevado(View view) {
+        operador = "diezelevado";
+        btnDiezElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnPunto.setClickable(true);
+        btnIgual.setClickable(true);
+
+    }
+
+    public void onClickbtnxfactorial(View view) {
+
+        if(initialNumber.size() > 0) {
+            capturaNumero2();
+            int factorial = 1;
+            int num;
+
+            if (num1 - num1.intValue() != 0  || num1.intValue() < 0) {
+                total.setText(getString(R.string.math_error));
+            } else {
+                num = Math.abs(num1.intValue());
+                while (num != 0) {
+                    factorial = factorial * num;
+                    num--;
+                }
+                setIntNumber(String.valueOf(factorial));
+                total.setText(getNumber());
+            }
+            btnIgual.setClickable(false);
+        }
+
+
+    }
+
+
+    public void onClickbtnsenoinverso(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+
+            if (resultado > 1 || resultado < -1) {
+                total.setText(getString(R.string.math_error));
+
+            } else {
+
+                switch (grados) {
+                    case "rad":
+                        resultado = Math.asin(resultado);
+                        clasifyNumberAndShow();
+                        break;
+
+                    case "deg":
+                        resultado = Math.asin(resultado);
+                        resultado = Math.toDegrees(resultado);
+                        clasifyNumberAndShow();
+                        break;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    public void onClickbtncosenoinverso(View view) {
+
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+
+            if (resultado > 1 || resultado < -1) {
+                total.setText(getString(R.string.math_error));
+            } else {
+                switch (grados) {
+
+                    case "rad":
+                        resultado = Math.acos(resultado);
+                        clasifyNumberAndShow();
+                        break;
+
+
+                    case "deg":
+                        resultado = Math.acos(resultado);
+                        resultado = Math.toDegrees(resultado);
+                        clasifyNumberAndShow();
+                        break;
+                }
+
+            }
+        }
+
+    }
+
+    public void onClickbtntangenteinverso(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+            switch (grados) {
+                case "rad":
+                    resultado = Math.atan(resultado);
+                    clasifyNumberAndShow();
+                    break;
+
+                case "deg":
+                    resultado = Math.atan(resultado);
+                    resultado = Math.toDegrees(resultado);
+                    clasifyNumberAndShow();
+                    break;
+            }
+        }
+
+    }
+
+    public void onClickbtneelevado(View view) {
+        operador = "eelevado";
+        btnEulerElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnIgual.setClickable(true);
+    }
+
+    public void onClickbtnlogaritmo(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+            resultado = Math.log10(resultado);
+            clasifyNumberAndShow();
+            btnIgual.setClickable(false);
+        }
+    }
+
+    public void onClickbtnlogaritmonatural(View view) {
+        if(initialNumber.size() > 0) {
+            capturaNumero();
+            resultado = Math.log(resultado);
+            clasifyNumberAndShow();
+            btnIgual.setClickable(false);
+        }
+
+    }
+
+    public void onClickbtnraizcubica(View view) {
+        capturaNumero();
+        btnPunto.setClickable(true);
+        resultado = Math.cbrt(resultado);
+        clasifyNumberAndShow();
+    }
+
+    public void onClickbtnRandom(View view) {
+        setNumber(String.valueOf(Math.random()));
+        total.setText(getNumber());
+        btnPunto.setClickable(false);
+    }
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////METHODS/////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    public void setBtnClickable(){
+
         btn0.setClickable(true);
         btn1.setClickable(true);
         btn2.setClickable(true);
@@ -518,658 +953,150 @@ public class Calculadora extends AppCompatActivity{
         btnPor.setClickable(true);
         btnMenos.setClickable(true);
         btnMas.setClickable(true);
-        btnIgual.setClickable(true);
         btnPorcentaje.setClickable(true);
 
 
-    }
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-
-
-
-    // Botones calculadora científica
-
-    public void onClickbtnelevadoaMenosuno(View view) {
-        try {
-            capturaNumero2();
-            num1 = Math.pow(num1, -1);
-            if (num1 - num1.intValue() != 0) {
-                total.setText(num1.toString());
-            } else {
-                resultadoEntero = num1.intValue();
-                total.setText(String.valueOf(resultadoEntero));
-            }
-            btnIgual.setClickable(false);
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void onClickbtndegree(View view) {
-        try {
-            btnDeg.setBackgroundResource(R.drawable.custom_shape_button_pressed);
-            btnRad.setBackgroundResource(R.drawable.custom_shape_buttons_darkgray);
-            grados = "deg";
-            btnDeg.setClickable(false);
-            btnRad.setClickable(true);
-            btnIgual.setClickable(false);
-            total.setText("");
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnradianes(View view) {
-        try {
-            btnRad.setBackgroundResource(R.drawable.custom_shape_button_pressed);
-            btnDeg.setBackgroundResource(R.drawable.custom_shape_buttons_darkgray);
-            grados = "rad";
-            btnRad.setClickable(false);
+            btnxInverso.setClickable(true);
+            btnxAlCuadrado.setClickable(true);
+            btnxAlCubo.setClickable(true);
+            btnxFactorial.setClickable(true);
             btnDeg.setClickable(true);
-            btnIgual.setClickable(false);
-            total.setText("");
-
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnpi(View view) {
-        total.setText(String.valueOf(pi));
-        btnPi.setClickable(false);
-    }
-
-
-    public void onClickbtnabsoluto(View view) {
-        try {
-            capturaNumero2();
-            btnIgual.setClickable(false);
-            num1 = Math.abs(num1);
-
-            if (num1 - num1.intValue() != 0) {
-                total.setText(num1.toString());
-            } else {
-                resultadoEntero = num1.intValue();
-                total.setText(String.valueOf(resultadoEntero));
-            }
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnalcuadrado(View view) {
-        try {
-            capturaNumero2();
-            num1 = Math.pow(num1, 2);
-
-            if (num1 - num1.intValue() != 0) {
-                total.setText(num1.toString());
-            } else {
-                resultadoEntero = num1.intValue();
-                total.setText(String.valueOf(resultadoEntero));
-            }
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnhipotenusa(View view) {
-        try {
-            capturaNumero2();
-            operador = "hipo";
-            btnPunto.setClickable(true);
-            btnIgual.setClickable(true);
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnpotencia(View view) {
-        try {
-            capturaNumero2();
-            btnElevar.setBackgroundResource(R.drawable.custom_shape_button_pressed);
-            operador = "pot";
-            btnPunto.setClickable(true);
-            btnIgual.setClickable(true);
-
-        } catch (Exception ex) {
-
+            btnAbsoluto.setClickable(true);
+            btnPi.setClickable(true);
+            btnHipotenusa.setClickable(true);
+            btnElevar.setClickable(true);
+            btnEuler.setClickable(true);
+            btnExp.setClickable(true);
+            btnSeno.setClickable(true);
+            btnCos.setClickable(true);
+            btnTan.setClickable(true);
+            btnDiezElevado.setClickable(true);
+            btnSenoInverso.setClickable(true);
+            btnCosInverso.setClickable(true);
+            btnTanInverso.setClickable(true);
+            btnRad.setClickable(true);
+            btnEulerElevado.setClickable(true);
+            btnLog.setClickable(true);
+            btnLn.setClickable(true);
+            btnRaizCubica.setClickable(true);
         }
 
     }
 
 
-    public void onClickbtne(View view) {
-        total.setText(String.valueOf(e));
-        btnEuler.setClickable(false);
-    }
+    public void displayNumbers (){
 
+        switch (initialNumber.size()) {
 
-    public void onClickbtnexponente(View view) {
-        try {
-            capturaNumero2();
-            btnExp.setBackgroundResource(R.drawable.custom_shape_button_pressed);
-            operador = "exp";
-            btnPunto.setClickable(true);
-            btnIgual.setClickable(true);
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnalcubo(View view) {
-        try {
-            capturaNumero2();
-            num1 = Math.pow(num1, 3);
-
-            if (num1 - num1.intValue() != 0) {
-                total.setText(num1.toString());
-            } else {
-                resultadoEntero = num1.intValue();
-                total.setText(String.valueOf(resultadoEntero));
-            }
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnseno(View view) {
-
-        try {
-            capturaNumero2();
-
-            if (grados.equals("rad")) {
-                Calculadora.resultado = Math.sin(num1);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            }
-
-
-            else if (grados.equals("deg")) {
-                Calculadora.resultado = Math.toRadians(num1);
-                Calculadora.resultado = Math.sin(Calculadora.resultado);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-
-            }
-        }catch (Exception ex){
-
-        }
-
-
-
-
-    }
-
-
-    public void onClickbtncoseno(View view) {
-        try {
-            capturaNumero2();
-
-            if (grados.equals("rad")) {
-                Calculadora.resultado = Math.cos(num1);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (grados.equals("deg")) {
-                Calculadora.resultado = Math.toRadians(num1);
-                Calculadora.resultado = Math.cos(Calculadora.resultado);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            }
-
-
-        } catch (Exception ex) {
+            case 1:
+                showNumber = initialNumber.get(0);
+                break;
+            case 2:
+                showNumber = initialNumber.get(0);
+                showNumber += initialNumber.get(1);
+                break;
+            case 3:
+                showNumber = initialNumber.get(0);
+                showNumber += initialNumber.get(1);
+                showNumber += initialNumber.get(2);
+                break;
+            case 4:
+                showNumber = initialNumber.get(0);
+                showNumber += ",";
+                showNumber += initialNumber.get(1);
+                showNumber += initialNumber.get(2);
+                showNumber += initialNumber.get(3);
+                break;
+            case 5:
+                showNumber = initialNumber.get(0);
+                showNumber += initialNumber.get(1);
+                showNumber += ",";
+                showNumber += initialNumber.get(2);
+                showNumber += initialNumber.get(3);
+                showNumber += initialNumber.get(4);
+                break;
+            case 6:
+                showNumber = initialNumber.get(0);
+                showNumber += initialNumber.get(1);
+                showNumber += initialNumber.get(2);
+                showNumber += ",";
+                showNumber += initialNumber.get(3);
+                showNumber += initialNumber.get(4);
+                showNumber += initialNumber.get(5);
+                break;
+            case 7:
+                showNumber = initialNumber.get(0);
+                showNumber += ",";
+                showNumber += initialNumber.get(1);
+                showNumber += initialNumber.get(2);
+                showNumber += initialNumber.get(3);
+                showNumber += ",";
+                showNumber += initialNumber.get(4);
+                showNumber += initialNumber.get(5);
+                showNumber += initialNumber.get(6);
+                break;
+            case 8:
+                showNumber = initialNumber.get(0);
+                showNumber += initialNumber.get(1);
+                showNumber += ",";
+                showNumber += initialNumber.get(2);
+                showNumber += initialNumber.get(3);
+                showNumber += initialNumber.get(4);
+                showNumber += ",";
+                showNumber += initialNumber.get(5);
+                showNumber += initialNumber.get(6);
+                showNumber += initialNumber.get(7);
+                break;
+            case 9:
+                showNumber = initialNumber.get(0);
+                showNumber += initialNumber.get(1);
+                showNumber += initialNumber.get(2);
+                showNumber += ",";
+                showNumber += initialNumber.get(3);
+                showNumber += initialNumber.get(4);
+                showNumber += initialNumber.get(5);
+                showNumber += ",";
+                showNumber += initialNumber.get(6);
+                showNumber += initialNumber.get(7);
+                showNumber += initialNumber.get(8);
+                break;
 
         }
 
-    }
-
-    public void onClickbtntangente(View view) {
-        try {
-            capturaNumero2();
-
-            if (grados.equals("rad")) {
-                Calculadora.resultado = Math.tan(num1);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (grados.equals("deg")) {
-                Calculadora.resultado = Math.toRadians(num1);
-                Calculadora.resultado = Math.tan(Calculadora.resultado);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            }
-
-
-        } catch (Exception ex) {
-
+        if(puntoClicked){
+            showNumber += ".";
+            showNumber += decimal;
         }
 
-    }
 
-
-    public void onClickbtndiezelevado(View view) {
-        try {
-            operador = "diezelevado";
-            btnDiezElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
-            btnPunto.setClickable(true);
-            btnIgual.setClickable(true);
-
-        } catch (Exception ex) {
-
-        }
+        total.setText(showNumber);
 
     }
-
-    public void onClickbtnxfactorial(View view) {
-        try {
-            capturaNumero2();
-            int factorial = 1;
-            int num;
-
-            if (num1 - num1.intValue() != 0) {
-                total.setText("Math ERROR");
-                btn0.setClickable(false);
-                btn1.setClickable(false);
-                btn2.setClickable(false);
-                btn3.setClickable(false);
-                btn4.setClickable(false);
-                btn5.setClickable(false);
-                btn6.setClickable(false);
-                btn7.setClickable(false);
-                btn8.setClickable(false);
-                btn9.setClickable(false);
-                btnPunto.setClickable(false);
-                btnInverso.setClickable(false);
-                btnRaiz.setClickable(false);
-                btnEntre.setClickable(false);
-                btnPor.setClickable(false);
-                btnMenos.setClickable(false);
-                btnMas.setClickable(false);
-                btnIgual.setClickable(false);
-
-                btnxInverso.setClickable(false);
-                btnxAlCuadrado.setClickable(false);
-                btnxAlCubo.setClickable(false);
-                btnxFactorial.setClickable(false);
-                btnDeg.setClickable(false);
-                btnAbsoluto.setClickable(false);
-                btnPi.setClickable(false);
-                btnHipotenusa.setClickable(false);
-                btnElevar.setClickable(false);
-                btnEuler.setClickable(false);
-                btnExp.setClickable(false);
-                btnSeno.setClickable(false);
-                btnCos.setClickable(false);
-                btnTan.setClickable(false);
-                btnDiezElevado.setClickable(false);
-                btnSenoInverso.setClickable(false);
-                btnCosInverso.setClickable(false);
-                btnTanInverso.setClickable(false);
-                btnRad.setClickable(false);
-                btnEulerElevado.setClickable(false);
-                btnLog.setClickable(false);
-                btnLn.setClickable(false);
-                btnRaizCubica.setClickable(false);
-                btnPorcentaje.setClickable(false);
-
-            } else {
-                num = Math.abs(num1.intValue());
-
-                while (num != 0) {
-                    factorial = factorial * num;
-                    num--;
-                }
-
-                if (num1.intValue() < 0) {
-                    factorial = factorial * -1;
-
-                } else {
-
-                }
-
-
-                total.setText(String.valueOf(factorial));
-            }
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-
-    public void onClickbtnsenoinverso(View view) {
-        try {
-            capturaNumero2();
-
-            if(num1>1||num1<-1) {
-
-                total.setText("Math ERROR");
-                btn0.setClickable(false);
-                btn1.setClickable(false);
-                btn2.setClickable(false);
-                btn3.setClickable(false);
-                btn4.setClickable(false);
-                btn5.setClickable(false);
-                btn6.setClickable(false);
-                btn7.setClickable(false);
-                btn8.setClickable(false);
-                btn9.setClickable(false);
-                btnPunto.setClickable(false);
-                btnInverso.setClickable(false);
-                btnRaiz.setClickable(false);
-                btnEntre.setClickable(false);
-                btnPor.setClickable(false);
-                btnMenos.setClickable(false);
-                btnMas.setClickable(false);
-                btnIgual.setClickable(false);
-
-                btnxInverso.setClickable(false);
-                btnxAlCuadrado.setClickable(false);
-                btnxAlCubo.setClickable(false);
-                btnxFactorial.setClickable(false);
-                btnDeg.setClickable(false);
-                btnAbsoluto.setClickable(false);
-                btnPi.setClickable(false);
-                btnHipotenusa.setClickable(false);
-                btnElevar.setClickable(false);
-                btnEuler.setClickable(false);
-                btnExp.setClickable(false);
-                btnSeno.setClickable(false);
-                btnCos.setClickable(false);
-                btnTan.setClickable(false);
-                btnDiezElevado.setClickable(false);
-                btnSenoInverso.setClickable(false);
-                btnCosInverso.setClickable(false);
-                btnTanInverso.setClickable(false);
-                btnRad.setClickable(false);
-                btnEulerElevado.setClickable(false);
-                btnLog.setClickable(false);
-                btnLn.setClickable(false);
-                btnRaizCubica.setClickable(false);
-                btnPorcentaje.setClickable(false);
-
-            }
-            else{
-
-                if (grados.equals("rad")) {
-                    Calculadora.resultado = Math.asin(num1);
-
-                    if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                        total.setText(Calculadora.resultado.toString());
-                    } else {
-                        resultadoEntero = Calculadora.resultado.intValue();
-                        total.setText(String.valueOf(resultadoEntero));
-                    }
-                } else if (grados.equals("deg")) {
-                    Calculadora.resultado = Math.asin(num1);
-                    Calculadora.resultado = Math.toDegrees(Calculadora.resultado);
-
-                    if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                        total.setText(Calculadora.resultado.toString());
-                    } else {
-                        resultadoEntero = Calculadora.resultado.intValue();
-                        total.setText(String.valueOf(resultadoEntero));
-                    }
-                }
-
-
-            }
-
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-
-    public void onClickbtncosenoinverso(View view) {
-        try {
-            capturaNumero2();
-
-            if(num1>1||num1<-1) {
-                total.setText("Math ERROR");
-                btn0.setClickable(false);
-                btn1.setClickable(false);
-                btn2.setClickable(false);
-                btn3.setClickable(false);
-                btn4.setClickable(false);
-                btn5.setClickable(false);
-                btn6.setClickable(false);
-                btn7.setClickable(false);
-                btn8.setClickable(false);
-                btn9.setClickable(false);
-                btnPunto.setClickable(false);
-                btnInverso.setClickable(false);
-                btnRaiz.setClickable(false);
-                btnEntre.setClickable(false);
-                btnPor.setClickable(false);
-                btnMenos.setClickable(false);
-                btnMas.setClickable(false);
-                btnIgual.setClickable(false);
-
-                btnxInverso.setClickable(false);
-                btnxAlCuadrado.setClickable(false);
-                btnxAlCubo.setClickable(false);
-                btnxFactorial.setClickable(false);
-                btnDeg.setClickable(false);
-                btnAbsoluto.setClickable(false);
-                btnPi.setClickable(false);
-                btnHipotenusa.setClickable(false);
-                btnElevar.setClickable(false);
-                btnEuler.setClickable(false);
-                btnExp.setClickable(false);
-                btnSeno.setClickable(false);
-                btnCos.setClickable(false);
-                btnTan.setClickable(false);
-                btnDiezElevado.setClickable(false);
-                btnSenoInverso.setClickable(false);
-                btnCosInverso.setClickable(false);
-                btnTanInverso.setClickable(false);
-                btnRad.setClickable(false);
-                btnEulerElevado.setClickable(false);
-                btnLog.setClickable(false);
-                btnLn.setClickable(false);
-                btnRaizCubica.setClickable(false);
-                btnPorcentaje.setClickable(false);
-
-
-            }
-            else{
-
-                if (grados.equals("rad")) {
-                    Calculadora.resultado = Math.acos(num1);
-
-                    if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                        total.setText(Calculadora.resultado.toString());
-                    } else {
-                        resultadoEntero = Calculadora.resultado.intValue();
-                        total.setText(String.valueOf(resultadoEntero));
-                    }
-                } else if (grados.equals("deg")) {
-                    Calculadora.resultado = Math.acos(num1);
-                    Calculadora.resultado = Math.toDegrees(Calculadora.resultado);
-
-                    if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                        total.setText(Calculadora.resultado.toString());
-                    } else {
-                        resultadoEntero = Calculadora.resultado.intValue();
-                        total.setText(String.valueOf(resultadoEntero));
-                    }
-                }
-
-
-            }
-
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtntangenteinverso(View view) {
-        try {
-            capturaNumero2();
-
-            if (grados.equals("rad")) {
-                Calculadora.resultado = Math.atan(num1);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            } else if (grados.equals("deg")) {
-                Calculadora.resultado = Math.atan(num1);
-                Calculadora.resultado = Math.toDegrees(Calculadora.resultado);
-
-                if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                    total.setText(Calculadora.resultado.toString());
-                } else {
-                    resultadoEntero = Calculadora.resultado.intValue();
-                    total.setText(String.valueOf(resultadoEntero));
-                }
-            }
-
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtneelevado(View view) {
-        try {
-            operador = "eelevado";
-            btnEulerElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
-            btnIgual.setClickable(true);
-
-        } catch (Exception ex) {
-
-        }
-
-    }
-
-    public void onClickbtnlogaritmo(View view) {
-        try {
-            capturaNumero2();
-            num1 = Math.log10(num1);
-            if (num1 - num1.intValue() != 0) {
-                total.setText(num1.toString());
-            } else {
-                resultadoEntero = num1.intValue();
-                total.setText(String.valueOf(resultadoEntero));
-            }
-            btnIgual.setClickable(false);
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void onClickbtnlogaritmonatural(View view) {
-        try {
-            capturaNumero2();
-            num1 = Math.log(num1);
-            if (num1 - num1.intValue() != 0) {
-                total.setText(num1.toString());
-            } else {
-                resultadoEntero = num1.intValue();
-                total.setText(String.valueOf(resultadoEntero));
-            }
-            btnIgual.setClickable(false);
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void onClickbtnraizcubica(View view) {
-        try {
-            capturaNumero();
-            btnPunto.setClickable(true);
-
-            Calculadora.resultado = Math.cbrt(Calculadora.resultado);
-
-            if (Calculadora.resultado - Calculadora.resultado.intValue() != 0) {
-                total.setText(Calculadora.resultado.toString());
-            } else {
-                resultadoEntero = Calculadora.resultado.intValue();
-                total.setText(String.valueOf(resultadoEntero));
-            }
-
-
-        } catch (Exception ex) {
-
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////METHODS/////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
     public void capturaNumero(){
-        resultado = Double.parseDouble(total.getText().toString());
+
+        resultado = Double.parseDouble(getNumber());
+
+        initialNumber.clear();
+        showNumber = "";
+        decimal = "";
+        puntoClicked = false;
+
         total.setText("");
     }
 
     public void capturaNumero2() {
-        num1 = Double.parseDouble(total.getText().toString());
+
+        num1 = Double.parseDouble(getNumber());
+
+        initialNumber.clear();
+        showNumber = "";
+        decimal = "";
+        puntoClicked = false;
         total.setText("");
 
 
@@ -1177,44 +1104,106 @@ public class Calculadora extends AppCompatActivity{
 
 
     public Double igual(){
-        try {
-            num2 = Double.parseDouble(total.getText().toString());
 
-            if (operador.equals("+")) {
+        switch (operador){
+
+            case "+":
                 resultado = resultado + num2;
-            } else if (operador.equals("-")) {
+                break;
+            case "-":
                 resultado = resultado - num2;
-            } else if (operador.equals("*")) {
+                break;
+            case "*":
                 resultado = resultado * num2;
-            } else if (operador.equals("/")) {
+                break;
+            case "/":
                 resultado = resultado / num2;
-            } else if (operador.equals("√")) {
+                break;
+            case "√":
                 btnPunto.setClickable(true);
-            } else {
-
-            }
-
-            total.setText("");
-
-        } catch (Exception ex){
+                break;
 
         }
 
+        total.setText("");
+        initialNumber.clear();
+        showNumber = "";
+        decimal = "";
+        puntoClicked = false;
 
         return resultado;
     }
 
 
 
+    public String getNumber(){
+        String number = "";
+
+        if(decimal.length() > 0){
+
+            for(int i = 0; i < initialNumber.size(); i++){
+                number += initialNumber.get(i);
+            }
+
+            number += ".";
+            number += decimal;
+
+
+        }else{
+
+            for(int i = 0; i < initialNumber.size(); i++){
+                number += initialNumber.get(i);
+            }
+
+        }
+
+        return number;
+
+    }
+
+    public void setNumber (String number){
+        String [] numberSplit = number.split("\\.");
+        initialNumber.clear();
+
+        for(int i = 0; i < numberSplit [0] .length(); i++){
+            initialNumber.add(String.valueOf(number.charAt(i)));
+        }
+        decimal = numberSplit[1];
+
+
+    }
+
+    public void setIntNumber(String number){
+        initialNumber.clear();
+        for(int i = 0; i < number.length(); i++){
+            initialNumber.add(String.valueOf(number.charAt(i)));
+        }
+        decimal = "";
+    }
+
+
+    public void clasifyNumberAndShow(){
+
+        if (resultado - resultado.intValue() != 0) {
+            total.setText(String.valueOf(resultado));
+            setNumber(String.valueOf(resultado));
+        } else {
+            resultadoEntero = resultado.intValue();
+            total.setText(String.valueOf(resultadoEntero));
+            setIntNumber(String.valueOf(resultadoEntero));
+
+        }
+    }
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        String numberDisplayed = total.getText().toString();
+        String numberDisplayed = getNumber();
 
         outState.putString(TOTAL_TAG, numberDisplayed);
     }
-
 
 
 

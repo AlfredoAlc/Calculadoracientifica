@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorForeground">@android:color/black</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/whiteLetters</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="landStyle" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/whiteLetters</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="numberStyleLand" parent="landStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+
+    <style name="numberStylePort" parent="landStyle">
+        <item name="android:textSize">35sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="signStylePort" parent="numberStylePort">
+        <item name="android:textColor">@color/whiteLetters</item>
     </style>
 </resources>

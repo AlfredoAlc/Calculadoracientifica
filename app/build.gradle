@@ -6,8 +6,8 @@ android {
         applicationId 'calcu.aar92_22.calculadoracientifica'
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 12
-        versionName "3.1.1"
+        versionCode 13
+        versionName "3.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,7 +26,7 @@ dependencies {
             { exclude group: 'com.android.support', module: ' support-annotations'
     })
 
-
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'

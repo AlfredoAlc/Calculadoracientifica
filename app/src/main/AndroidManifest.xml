@@ -17,8 +17,7 @@
         <activity
             android:name=".Calculadora"
             android:configChanges="keyboardHidden|screenSize"
-            android:label="Calculator"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="Calculator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
