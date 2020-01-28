@@ -645,9 +645,6 @@ public class Calculadora extends AppCompatActivity{
             puntoClicked = false;
             total.setText("");
             btnAC.setText(getString(R.string.clear_all));
-            btnElevar.setBackgroundResource(0);
-            btnDiezElevado.setBackgroundResource(0);
-            btnEulerElevado.setBackgroundResource(0);
             setBtnClickable();
         }else{
             num2 = 0.0;
@@ -1083,6 +1080,10 @@ public class Calculadora extends AppCompatActivity{
             btnLog.setClickable(true);
             btnLn.setClickable(true);
             btnRaizCubica.setClickable(true);
+
+            btnElevar.setBackgroundResource(0);
+            btnDiezElevado.setBackgroundResource(0);
+            btnEulerElevado.setBackgroundResource(0);
         }
 
     }
@@ -1163,11 +1164,22 @@ public class Calculadora extends AppCompatActivity{
                 showNumber += initialNumber.get(6);
                 showNumber += initialNumber.get(7);
                 showNumber += initialNumber.get(8);
+
+                btn0.setClickable(false);
+                btn1.setClickable(false);
+                btn2.setClickable(false);
+                btn3.setClickable(false);
+                btn4.setClickable(false);
+                btn5.setClickable(false);
+                btn6.setClickable(false);
+                btn7.setClickable(false);
+                btn8.setClickable(false);
+                btn9.setClickable(false);
                 break;
 
         }
 
-        if(puntoClicked){
+        if(puntoClicked && showNumber.length() < 12){
             showNumber += ".";
             showNumber += decimal;
         }
