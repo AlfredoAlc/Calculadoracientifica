@@ -1,18 +1,20 @@
 package com.example.aar92_22.calculadoracientifica;
 
 import android.content.res.Configuration;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
 
-public class Calculadora extends AppCompatActivity{
+public class Calculadora extends AppCompatActivity {
 
     TextView total;
 
