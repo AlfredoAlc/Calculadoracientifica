@@ -10,17 +10,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/icono"
+        android:icon="@mipmap/icon"
         android:label="Calculator"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Calculadora"
-            android:configChanges="keyboardHidden|screenSize"
-            android:label="Calculator">
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,8 +26,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true"/>
-
-
     </application>
 
 </manifest>
