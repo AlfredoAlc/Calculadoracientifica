@@ -57,7 +57,7 @@
                 style="@style/landStyle"
                 android:onClick="onClickBtnDeg"
                 android:text="@string/degree"
-                android:background="@drawable/custom_shape_button_pressed"
+                android:background="@drawable/shape_button_selected"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/elevadoaMenosuno"
                 app:layout_constraintBottom_toTopOf="@id/radianes"

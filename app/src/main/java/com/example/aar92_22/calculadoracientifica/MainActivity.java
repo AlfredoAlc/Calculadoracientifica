@@ -1,11 +1,14 @@
 package com.example.aar92_22.calculadoracientifica;
 
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -27,17 +30,16 @@ public class MainActivity extends AppCompatActivity {
     TextView btnAC, btnInvert, btnRoot, btnDiv, btnMul, btnSub, btnAdd, btnCompute, btnPercentage;
 
     //Scientific calculator
-    TextView btnxInverso, btnxAlCuadrado, btnxAlCubo, btnxFactorial;
-    TextView btnPi, btnAbsoluto, btnDeg;
-    TextView btnHipotenusa, btnElevar, btnEuler, btnExp;
-    TextView btnSeno, btnCos, btnTan, btnDiezElevado;
-    TextView btnSenoInverso, btnCosInverso, btnTanInverso, btnRad, btnEulerElevado;
-    TextView btnLog, btnLn, btnRaizCubica;
+    TextView btnInv, btnSquarePow, btnCubicPow, btnFactorial;
+    TextView btnPi, btnAbs, btnDeg, btnRand;
+    TextView btnHip, btnPow, btnEuler, btnExp;
+    TextView btnSin, btnCos, btnTan, btnTenPow;
+    TextView btnSinInv, btnCosInv, btnTanInv, btnRad, btnEulerPow;
+    TextView btnLog, btnLn, btnCubicRoot;
 
 
-    Double resultado;
     Double num1, num2;
-    String grados = "deg";
+    String grade = "deg";
     String operator = "";
     String intNumber = "";
     String decimal = "";
@@ -76,29 +78,30 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.mas);
         btnCompute = findViewById(R.id.igual);
         btnPercentage = findViewById(R.id.porciento);
-        btnxInverso = findViewById(R.id.elevadoaMenosuno);
-        btnxAlCuadrado = findViewById(R.id.alcuadrado);
-        btnxAlCubo = findViewById(R.id.alcubo);
-        btnxFactorial = findViewById(R.id.xfactorial);
+        btnInv = findViewById(R.id.elevadoaMenosuno);
+        btnSquarePow = findViewById(R.id.alcuadrado);
+        btnCubicPow = findViewById(R.id.alcubo);
+        btnFactorial = findViewById(R.id.xfactorial);
         btnPi = findViewById(R.id.pi);
-        btnHipotenusa = findViewById(R.id.hipotenusa);
-        btnElevar = findViewById(R.id.potencia);
+        btnHip = findViewById(R.id.hipotenusa);
+        btnPow = findViewById(R.id.potencia);
         btnEuler = findViewById(R.id.e);
         btnExp = findViewById(R.id.exponente);
-        btnSeno = findViewById(R.id.seno);
+        btnSin = findViewById(R.id.seno);
         btnCos = findViewById(R.id.coseno);
         btnTan = findViewById(R.id.tangente);
-        btnDiezElevado = findViewById(R.id.diezelevado);
-        btnSenoInverso = findViewById(R.id.senoinverso);
-        btnCosInverso = findViewById(R.id.cosenoinverso);
-        btnTanInverso = findViewById(R.id.tangenteinverso);
+        btnTenPow = findViewById(R.id.diezelevado);
+        btnSinInv = findViewById(R.id.senoinverso);
+        btnCosInv = findViewById(R.id.cosenoinverso);
+        btnTanInv = findViewById(R.id.tangenteinverso);
         btnRad = findViewById(R.id.radianes);
-        btnEulerElevado = findViewById(R.id.eelevado);
+        btnEulerPow = findViewById(R.id.eelevado);
         btnLog = findViewById(R.id.logaritmo);
         btnLn = findViewById(R.id.logaritmonatural);
-        btnRaizCubica = findViewById(R.id.raizcubica);
+        btnCubicRoot = findViewById(R.id.raizcubica);
         btnDeg = findViewById(R.id.degree);
-        btnAbsoluto = findViewById(R.id.absoluto);
+        btnAbs = findViewById(R.id.absoluto);
+        btnRand = findViewById(R.id.random);
 
         total = findViewById(R.id.numberDisplay);
 
@@ -110,11 +113,10 @@ public class MainActivity extends AppCompatActivity {
             displayNumbers();
         }
 
-
-
+        setStateListToButtons();
         setOperationsButtonsUnClickable();
-
     }
+
 
 
     public void onClickBtn0(View view){
@@ -250,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                     num2 = num1;
                     getNumber1();
                     num1 = Math.pow(num2, num1);
-                    btnElevar.setBackgroundResource(0);
+                    btnPow.setBackgroundResource(0);
                     break;
 
                 case "exp":
@@ -263,13 +265,13 @@ public class MainActivity extends AppCompatActivity {
                 case "powTen":
                     getNumber1();
                     num1 = Math.pow(10, num1);
-                    btnDiezElevado.setBackgroundResource(0);
+                    btnTenPow.setBackgroundResource(0);
                     break;
 
                 case "ePow":
                     getNumber1();
                     num1 = (Math.pow(E, num1));
-                    btnEulerElevado.setBackgroundResource(0);
+                    btnEulerPow.setBackgroundResource(0);
                     break;
 
 
@@ -321,9 +323,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickBtnDeg(View view) {
-        btnDeg.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnDeg.setBackgroundResource(R.drawable.shape_button_selected);
         btnRad.setBackgroundResource(0);
-        grados = "deg";
+        grade = "deg";
         btnDeg.setClickable(false);
         btnRad.setClickable(true);
         btnCompute.setClickable(false);
@@ -331,9 +333,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickBtnRad(View view) {
-        btnRad.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnRad.setBackgroundResource(R.drawable.shape_button_selected);
         btnDeg.setBackgroundResource(0);
-        grados = "rad";
+        grade = "rad";
         btnRad.setClickable(false);
         btnDeg.setClickable(true);
         btnCompute.setClickable(false);
@@ -396,13 +398,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnPowX(View view) {
         if(!showNumber.equals("")){
-            btnElevar.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+            btnPow.setBackgroundResource(R.drawable.shape_button_selected);
             getNumber1();
             operator = "pow";
             btnDot.setClickable(true);
             btnCompute.setClickable(true);
-            btnDiezElevado.setClickable(false);
-            btnEulerElevado.setClickable(false);
+            btnTenPow.setClickable(false);
+            btnEulerPow.setClickable(false);
         }
 
     }
@@ -437,13 +439,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnTenPow(View view) {
         if(!showNumber.equals("")){
-            btnExp.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+            btnExp.setBackgroundResource(R.drawable.shape_button_selected);
             getNumber1();
             operator = "exp";
             btnDot.setClickable(true);
             btnCompute.setClickable(true);
-            btnDiezElevado.setClickable(false);
-            btnElevar.setClickable(false);
+            btnTenPow.setClickable(false);
+            btnPow.setClickable(false);
         }
 
     }
@@ -460,7 +462,7 @@ public class MainActivity extends AppCompatActivity {
         if(!showNumber.equals("")){
             getNumber1();
 
-            switch (grados) {
+            switch (grade) {
                 case "rad":
                     num1 = Math.sin(num1);
                     classifyNumberAndShow();
@@ -482,7 +484,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnCos(View view) {
         if(!showNumber.equals("")){
             getNumber1();
-            switch (grados){
+            switch (grade){
                 case "rad":
                     num1 = Math.cos(num1);
                     classifyNumberAndShow();
@@ -502,7 +504,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnTan(View view) {
         if(!showNumber.equals("")){
             getNumber1();
-            switch (grados) {
+            switch (grade) {
                 case "rad":
                     num1 = Math.tan(num1);
                     classifyNumberAndShow();
@@ -520,12 +522,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnPowTen(View view) {
         operator = "powTen";
-        btnDiezElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnTenPow.setBackgroundResource(R.drawable.shape_button_selected);
         btnDot.setClickable(true);
         btnCompute.setClickable(true);
         btnAC.setText(getString(R.string.clear));
-        btnElevar.setClickable(false);
-        btnEulerElevado.setClickable(false);
+        btnPow.setClickable(false);
+        btnEulerPow.setClickable(false);
     }
 
     public void onClickBtnFactorial(View view) {
@@ -551,15 +553,15 @@ public class MainActivity extends AppCompatActivity {
             getNumber1();
 
             try {
-                switch (grados) {
+                switch (grade) {
                     case "rad":
-                        resultado = Math.asin(resultado);
+                        num1 = Math.asin(num1);
                         classifyNumberAndShow();
                         break;
 
                     case "deg":
-                        resultado = Math.asin(resultado);
-                        resultado = Math.toDegrees(resultado);
+                        num1 = Math.asin(num1);
+                        num1 = Math.toDegrees(num1);
                         classifyNumberAndShow();
                         break;
                 }
@@ -577,15 +579,15 @@ public class MainActivity extends AppCompatActivity {
             getNumber1();
 
             try{
-                switch (grados) {
+                switch (grade) {
                     case "rad":
-                        resultado = Math.acos(resultado);
+                        num1 = Math.acos(num1);
                         classifyNumberAndShow();
                         break;
 
                     case "deg":
-                        resultado = Math.acos(resultado);
-                        resultado = Math.toDegrees(resultado);
+                        num1 = Math.acos(num1);
+                        num1 = Math.toDegrees(num1);
                         classifyNumberAndShow();
                         break;
                 }
@@ -598,15 +600,15 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnTanInv(View view) {
         if(!showNumber.equals("")){
             getNumber1();
-            switch (grados) {
+            switch (grade) {
                 case "rad":
-                    resultado = Math.atan(resultado);
+                    num1 = Math.atan(num1);
                     classifyNumberAndShow();
                     break;
 
                 case "deg":
-                    resultado = Math.atan(resultado);
-                    resultado = Math.toDegrees(resultado);
+                    num1 = Math.atan(num1);
+                    num1 = Math.toDegrees(num1);
                     classifyNumberAndShow();
                     break;
             }
@@ -616,10 +618,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnEPow(View view) {
         operator = "ePow";
-        btnEulerElevado.setBackgroundResource(R.drawable.custom_shape_button_pressed);
+        btnEulerPow.setBackgroundResource(R.drawable.shape_button_selected);
         btnCompute.setClickable(true);
-        btnDiezElevado.setClickable(false);
-        btnElevar.setClickable(false);
+        btnTenPow.setClickable(false);
+        btnPow.setClickable(false);
     }
 
     public void onClickBtnLog(View view) {
@@ -682,33 +684,33 @@ public class MainActivity extends AppCompatActivity {
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-            btnxInverso.setClickable(true);
-            btnxAlCuadrado.setClickable(true);
-            btnxAlCubo.setClickable(true);
-            btnxFactorial.setClickable(true);
+            btnInv.setClickable(true);
+            btnSquarePow.setClickable(true);
+            btnCubicPow.setClickable(true);
+            btnFactorial.setClickable(true);
             btnDeg.setClickable(true);
-            btnAbsoluto.setClickable(true);
+            btnAbs.setClickable(true);
             btnPi.setClickable(true);
-            btnHipotenusa.setClickable(true);
-            btnElevar.setClickable(true);
+            btnHip.setClickable(true);
+            btnPow.setClickable(true);
             btnEuler.setClickable(true);
             btnExp.setClickable(true);
-            btnSeno.setClickable(true);
+            btnSin.setClickable(true);
             btnCos.setClickable(true);
             btnTan.setClickable(true);
-            btnDiezElevado.setClickable(true);
-            btnSenoInverso.setClickable(true);
-            btnCosInverso.setClickable(true);
-            btnTanInverso.setClickable(true);
+            btnTenPow.setClickable(true);
+            btnSinInv.setClickable(true);
+            btnCosInv.setClickable(true);
+            btnTanInv.setClickable(true);
             btnRad.setClickable(true);
-            btnEulerElevado.setClickable(true);
+            btnEulerPow.setClickable(true);
             btnLog.setClickable(true);
             btnLn.setClickable(true);
-            btnRaizCubica.setClickable(true);
+            btnCubicRoot.setClickable(true);
 
-            btnElevar.setBackgroundResource(0);
-            btnDiezElevado.setBackgroundResource(0);
-            btnEulerElevado.setBackgroundResource(0);
+            btnPow.setBackgroundResource(0);
+            btnTenPow.setBackgroundResource(0);
+            btnEulerPow.setBackgroundResource(0);
         }
 
     }
@@ -891,6 +893,72 @@ public class MainActivity extends AppCompatActivity {
         btn8.setClickable(true);
         btn9.setClickable(true);
         btnDot.setClickable(true);
+    }
+
+    private void setStateListToButtons() {
+
+        btn0.setBackground(setStateListDrawablePressed());
+        btn1.setBackground(setStateListDrawablePressed());
+        btn2.setBackground(setStateListDrawablePressed());
+        btn3.setBackground(setStateListDrawablePressed());
+        btn4.setBackground(setStateListDrawablePressed());
+        btn5.setBackground(setStateListDrawablePressed());
+        btn6.setBackground(setStateListDrawablePressed());
+        btn7.setBackground(setStateListDrawablePressed());
+        btn8.setBackground(setStateListDrawablePressed());
+        btn9.setBackground(setStateListDrawablePressed());
+        btnDot.setBackground(setStateListDrawablePressed());
+        btnAC.setBackground(setStateListDrawablePressed());
+        btnInvert.setBackground(setStateListDrawablePressed());
+        btnRoot.setBackground(setStateListDrawablePressed());
+        btnDiv.setBackground(setStateListDrawablePressed());
+        btnMul.setBackground(setStateListDrawablePressed());
+        btnSub.setBackground(setStateListDrawablePressed());
+        btnAdd.setBackground(setStateListDrawablePressed());
+        btnCompute.setBackground(setStateListDrawablePressed());
+        btnPercentage.setBackground(setStateListDrawablePressed());
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            btnInv.setBackground(setStateListDrawablePressed());
+            btnSquarePow.setBackground(setStateListDrawablePressed());
+            btnCubicPow.setBackground(setStateListDrawablePressed());
+            btnFactorial.setBackground(setStateListDrawablePressed());
+            btnPi.setBackground(setStateListDrawablePressed());
+            btnHip.setBackground(setStateListDrawablePressed());
+            btnPow.setBackground(setStateListDrawablePressed());
+            btnEuler.setBackground(setStateListDrawablePressed());
+            btnExp.setBackground(setStateListDrawablePressed());
+            btnSin.setBackground(setStateListDrawablePressed());
+            btnCos.setBackground(setStateListDrawablePressed());
+            btnTan.setBackground(setStateListDrawablePressed());
+            btnTenPow.setBackground(setStateListDrawablePressed());
+            btnSinInv.setBackground(setStateListDrawablePressed());
+            btnCosInv.setBackground(setStateListDrawablePressed());
+            btnTanInv.setBackground(setStateListDrawablePressed());
+            btnEulerPow.setBackground(setStateListDrawablePressed());
+            btnLog.setBackground(setStateListDrawablePressed());
+            btnLn.setBackground(setStateListDrawablePressed());
+            btnCubicRoot.setBackground(setStateListDrawablePressed());
+            btnAbs.setBackground(setStateListDrawablePressed());
+            btnRand.setBackground(setStateListDrawablePressed());
+
+        }
+    }
+
+
+
+    private StateListDrawable setStateListDrawablePressed(){
+        Drawable transparentShape = ContextCompat.getDrawable(this,R.drawable.shape_button_white_pressed);
+        if(transparentShape != null){
+            transparentShape.setAlpha(100);
+        }
+
+        StateListDrawable stateListDrawable = new StateListDrawable();
+        stateListDrawable.addState(new int[] {android.R.attr.state_pressed},transparentShape);
+
+        return stateListDrawable;
     }
 
 
