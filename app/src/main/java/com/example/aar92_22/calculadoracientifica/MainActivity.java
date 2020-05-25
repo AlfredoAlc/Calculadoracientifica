@@ -9,15 +9,29 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 
+import com.example.aar92_22.calculadoracientifica.History.AppExecutor;
+import com.example.aar92_22.calculadoracientifica.History.CalculatorDataBase;
+import com.example.aar92_22.calculadoracientifica.History.CalculatorViewModel;
+import com.example.aar92_22.calculadoracientifica.History.HistoryAdapter;
+import com.example.aar92_22.calculadoracientifica.History.HistoryFragment;
+import com.example.aar92_22.calculadoracientifica.History.NumberEntry;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements HistoryAdapter.NumberClickListener {
 
     //Tag to save bundle
     private static final String TOTAL_TAG = "total";
+    private static final String HISTORY_FRAGMENT_TAG = "history_fragment_tag";
 
     private static final double E = Math.E;
     private static final double PI = Math.PI;
@@ -46,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
     String showNumber = "";
     boolean dotClicked = false;
 
+    FragmentManager fragmentManager;
+
+    //Adapter for history fragment
+    HistoryAdapter mAdapter;
+
+    //History database
+    CalculatorDataBase calculatorDb;
+    List<NumberEntry> listToDeleteItems;
 
 
     @Override
@@ -54,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        AdView mAdView = findViewById(R.id.adView);
+        final AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -115,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
 
         setStateListToButtons();
         setOperationsButtonsUnClickable();
+
+        calculatorDb = CalculatorDataBase.getsInstance(getApplicationContext());
+        setUpHistoryFragmentAdapter();
     }
 
 
@@ -196,12 +221,14 @@ public class MainActivity extends AppCompatActivity {
             operator = "";
             dotClicked = false;
             classifyNumberAndShow();
+            insertOperationToDatabase("√");
         }
     }
 
 
     public void onClickBtnInvert(View view){
         if(!showNumber.equals("")){
+            insertOperationToDatabase("(-1)");
             getNumber1();
             num1 *= -1;
             classifyNumberAndShow();
@@ -212,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         if(!showNumber.equals("")){
             num2 = num1;
             getNumber1();
-
+            insertOperationToDatabase("%");
             num1 *= num2 * percentageValue;
             classifyNumberAndShow();
             num1 = num2;
@@ -276,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-
+            insertOperationToDatabase("=");
             classifyNumberAndShow();
             operator = "";
 
@@ -312,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnPowMinusOne(View view) {
         if(!showNumber.equals("")){
             getNumber1();
+            insertOperationToDatabase("1/x");
             try{
                 num1 = Math.pow(num1, -1);
             }catch (Exception e){
@@ -381,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnPowSquare(View view) {
         if(!showNumber.equals("")){
             getNumber1();
+            insertOperationToDatabase("^2");
             num1 = Math.pow(num1, 2);
             classifyNumberAndShow();
         }
@@ -390,6 +419,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnHip(View view) {
         if(!showNumber.equals("")){
             getNumber1();
+            insertOperationToDatabase("hip");
             operator = "hip";
             btnDot.setClickable(true);
             btnCompute.setClickable(true);
@@ -400,6 +430,7 @@ public class MainActivity extends AppCompatActivity {
         if(!showNumber.equals("")){
             btnPow.setBackgroundResource(R.drawable.shape_button_selected);
             getNumber1();
+            insertOperationToDatabase("^");
             operator = "pow";
             btnDot.setClickable(true);
             btnCompute.setClickable(true);
@@ -441,6 +472,7 @@ public class MainActivity extends AppCompatActivity {
         if(!showNumber.equals("")){
             btnExp.setBackgroundResource(R.drawable.shape_button_selected);
             getNumber1();
+            insertOperationToDatabase("exp");
             operator = "exp";
             btnDot.setClickable(true);
             btnCompute.setClickable(true);
@@ -453,6 +485,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnCubicPow(View view) {
         if(!showNumber.equals("")){
             getNumber1();
+            insertOperationToDatabase("^3");
             num1 = Math.pow(num1, 3);
             classifyNumberAndShow();
         }
@@ -460,6 +493,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnSin(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("sin");
             getNumber1();
 
             switch (grade) {
@@ -483,6 +517,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnCos(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("cos");
             getNumber1();
             switch (grade){
                 case "rad":
@@ -503,6 +538,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnTan(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("tan");
             getNumber1();
             switch (grade) {
                 case "rad":
@@ -522,6 +558,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnPowTen(View view) {
         operator = "powTen";
+        insertOperationToDatabase("10^");
         btnTenPow.setBackgroundResource(R.drawable.shape_button_selected);
         btnDot.setClickable(true);
         btnCompute.setClickable(true);
@@ -533,6 +570,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBtnFactorial(View view) {
         if(!showNumber.equals("")){
             getNumber1();
+            insertOperationToDatabase("!");
 
             if (num1 - num1.intValue() != 0  || num1 < 0) {
                 total.setText(getString(R.string.math_error));
@@ -550,6 +588,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnSinInv(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("sin^-1");
             getNumber1();
 
             try {
@@ -576,6 +615,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnCosInv(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("cos^-1");
             getNumber1();
 
             try{
@@ -599,6 +639,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnTanInv(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("tan^-1");
             getNumber1();
             switch (grade) {
                 case "rad":
@@ -618,6 +659,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnEPow(View view) {
         operator = "ePow";
+        insertOperationToDatabase("e^");
         btnEulerPow.setBackgroundResource(R.drawable.shape_button_selected);
         btnCompute.setClickable(true);
         btnTenPow.setClickable(false);
@@ -626,6 +668,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnLog(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("log");
             getNumber1();
             num1 = Math.log10(num1);
             classifyNumberAndShow();
@@ -635,6 +678,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickBtnLN(View view) {
         if(!showNumber.equals("")){
+            insertOperationToDatabase("ln");
             getNumber1();
             num1 = Math.log(num1);
             classifyNumberAndShow();
@@ -643,6 +687,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickBtnCubicRoot(View view) {
+        insertOperationToDatabase("3√");
         getNumber1();
         btnDot.setClickable(true);
         num1 = Math.cbrt(num1);
@@ -657,6 +702,51 @@ public class MainActivity extends AppCompatActivity {
         classifyNumberAndShow();
         btnDot.setClickable(false);
     }
+
+    public void historyFragmentOnClick(View view) {
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_layout,
+                new HistoryFragment(mAdapter), HISTORY_FRAGMENT_TAG).commit();
+
+    }
+
+    public void backOnClick(View view) {
+        Fragment actualFragment = fragmentManager.findFragmentByTag(HISTORY_FRAGMENT_TAG);
+        if(actualFragment != null){
+            fragmentManager.beginTransaction().remove(actualFragment).commit();
+        }
+
+    }
+
+    @Override
+    public void NumberSelected(final int id) {
+        setUpButtonsAtFirst();
+
+        AppExecutor.getInstance().mainIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                showNumber = calculatorDb.numberDao().getNumberById(id).getValue();
+                setDecimalNumber(showNumber);
+                displayNumbers();
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(decimal.equals("")){
+            outState.putString(TOTAL_TAG, intNumber);
+        } else {
+            outState.putString(TOTAL_TAG, intNumber + "." + decimal);
+        }
+
+    }
+
+
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -790,6 +880,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             num1 = Double.parseDouble(intNumber + "." + decimal);
         }
+        insertOperationToDatabase(showNumber);
         clearStrings();
     }
 
@@ -838,6 +929,7 @@ public class MainActivity extends AppCompatActivity {
             intNumber = String.valueOf(num1.intValue());
             displayNumbers();
         }
+        insertOperationToDatabase(showNumber);
     }
 
     private void clearStrings(){
@@ -882,6 +974,8 @@ public class MainActivity extends AppCompatActivity {
             operator = op;
             btnCompute.setClickable(true);
         }
+        insertOperationToDatabase(operator);
+
         btn0.setClickable(true);
         btn1.setClickable(true);
         btn2.setClickable(true);
@@ -893,6 +987,17 @@ public class MainActivity extends AppCompatActivity {
         btn8.setClickable(true);
         btn9.setClickable(true);
         btnDot.setClickable(true);
+    }
+
+    private void insertOperationToDatabase(final String operation){
+        AppExecutor.getInstance().mainIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                Date date = new Date();
+                NumberEntry entry = new NumberEntry(operation, date);
+                calculatorDb.numberDao().insert(entry);
+            }
+        });
     }
 
     private void setStateListToButtons() {
@@ -961,18 +1066,51 @@ public class MainActivity extends AppCompatActivity {
         return stateListDrawable;
     }
 
+    private void setUpHistoryFragmentAdapter(){
+        mAdapter = new HistoryAdapter(getApplicationContext(), this);
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if(decimal.equals("")){
-            outState.putString(TOTAL_TAG, intNumber);
-        } else {
-            outState.putString(TOTAL_TAG, intNumber + "." + decimal);
-        }
-
+        CalculatorViewModel viewModel = new CalculatorViewModel(getApplication());
+        viewModel.getNumber().observe(MainActivity.this , new Observer<List<NumberEntry>>() {
+            @Override
+            public void onChanged(List<NumberEntry> numberEntries) {
+                mAdapter.setNumberEntries(numberEntries);
+            }
+        });
     }
 
+    @Override
+    protected void onStop() {
 
+        AppExecutor.getInstance().mainIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<NumberEntry> fullList;
+                fullList = calculatorDb.numberDao().loadNumbersForDelete();
+
+                if(fullList.size() > 100){
+                    listToDeleteItems = new ArrayList<>();
+                    for(int i = 100; i < fullList.size(); i++){
+                        listToDeleteItems.add(fullList.get(i));
+                    }
+                }
+
+            }
+        });
+
+        if(listToDeleteItems != null){
+            AppExecutor.getInstance().mainIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i = 0; i < listToDeleteItems.size(); i++){
+                        calculatorDb.numberDao().deleteNumber(listToDeleteItems.get(i));
+                    }
+                }
+            });
+        }
+
+
+
+        super.onStop();
+    }
 
 }
