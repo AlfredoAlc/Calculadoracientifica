@@ -1,13 +1,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="260dp"
     android:layout_margin="8dp"
     android:layout_gravity="top"
     android:background="@color/black"
-    android:orientation="vertical"
-    tools:context="com.example.aar92_22.calculadoracientifica.History.HistoryFragment">
+    android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/back_btn"

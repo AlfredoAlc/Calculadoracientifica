@@ -922,13 +922,12 @@ public class MainActivity extends AppCompatActivity implements HistoryAdapter.Nu
     }
 
     public void classifyNumberAndShow(){
-        if (num1 - num1.intValue() != 0) {
+        if(num1 - num1.intValue() != 0) {
             setDecimalNumber(String.valueOf(num1));
-            displayNumbers();
         } else {
             intNumber = String.valueOf(num1.intValue());
-            displayNumbers();
         }
+        displayNumbers();
         insertOperationToDatabase(showNumber);
     }
 
