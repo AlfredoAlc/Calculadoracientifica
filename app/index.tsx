@@ -65,12 +65,13 @@ export default function HomeScreen() {
   };
 
   const renderNumber = () => {
+    if (error) return ERR;
+    if (currentNumber === 0) return "";
     try {
-      return currentNumber !== 0
-        ? currentNumber.toLocaleString("en-US", {
-            maximumSignificantDigits: 10,
-          })
-        : "";
+      const formattedNumber = currentNumber.toLocaleString("en-US", {
+        maximumSignificantDigits: 10,
+      });
+      return formattedNumber;
     } catch (err) {
       console.log("renderNumber error: ", err);
       setCurrentNumber(0);
@@ -90,20 +91,14 @@ export default function HomeScreen() {
           overScrollMode="always"
         >
           <Text style={styles.currentText}>
-            {error ? (
-              ERR
-            ) : (
-              <>
-                {renderNumber()}
-                {hasDecimalPoint && "."}
-              </>
-            )}
+            {renderNumber()}
+            {hasDecimalPoint ? "." : ""}
           </Text>
         </ScrollView>
       </View>
       <Buttons
         onPress={handleOnPress}
-        hasValue={currentNumber > 0}
+        hasValue={currentNumber > 0 || hasDecimalPoint}
         error={error}
       />
     </View>
