@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { ERR } from "@/constants/buttons/actions";
+import { EQUAL, ERR } from "@/constants/buttons/actions";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import Buttons from "@/components/Buttons";
 
@@ -46,7 +46,7 @@ export default function HomeScreen() {
     currentNumber,
     error,
     hasDecimalPoint,
-    prevActionName,
+    prevAction,
     calculate,
     setHasDecimalPoint,
     setCurrentNumber,
@@ -54,11 +54,11 @@ export default function HomeScreen() {
 
   const handleOnPress = (button: Button) => {
     if (typeof button.value !== "undefined") {
-      let value = `${currentNumber}${button.value}`;
-      if (hasDecimalPoint) {
-        value = `${currentNumber}.${button.value}`;
-        setHasDecimalPoint(false);
-      }
+      if (prevAction.action === EQUAL) return setCurrentNumber(button.value);
+      const value = `${currentNumber}${hasDecimalPoint ? "." : ""}${
+        button.value
+      }`;
+      if (hasDecimalPoint) setHasDecimalPoint(false);
       return setCurrentNumber(parseFloat(value));
     }
     calculate(button);
@@ -82,7 +82,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.scrollViewContainer}>
-        <Text style={styles.prevActionText}>{prevActionName}</Text>
+        <Text style={styles.prevActionText}>{prevAction.name}</Text>
         <ScrollView
           contentContainerStyle={styles.textContainer}
           directionalLockEnabled

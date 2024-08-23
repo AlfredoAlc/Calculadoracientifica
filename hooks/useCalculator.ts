@@ -4,7 +4,6 @@ import {
   CLEAR_ALL,
   DIVIDE,
   EQUAL,
-  ERR,
   INVERSE,
   MULTIPLY,
   PERCENTAGE,
@@ -22,17 +21,24 @@ import {
 import { Button } from "@/types/buttons";
 import { useRef, useState } from "react";
 
-type totalLocal = {
+type TotalLocal = {
   value: number;
   prevAction: string;
 };
-const defaultTotal: totalLocal = { value: 0, prevAction: "" };
+
+type PrevAction = {
+  action: string;
+  name: string;
+};
+const defaultTotal: TotalLocal = { value: 0, prevAction: "" };
+
+const defaultPrevAction: PrevAction = { action: "", name: "" };
 
 export default function useCalculator() {
   const [currentNumber, setCurrentNumber] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
   const [hasDecimalPoint, setHasDecimalPoint] = useState<boolean>(false);
-  const [prevActionName, setPrevActionName] = useState<string>("");
+  const [prevAction, setPrevAction] = useState<PrevAction>(defaultPrevAction);
 
   const total = useRef(defaultTotal);
 
@@ -47,19 +53,19 @@ export default function useCalculator() {
           ),
           prevAction: button.action,
         };
-        setPrevActionName(button.name);
+        setPrevAction({ name: button.name, action: button.action });
         setCurrentNumber(0);
         break;
 
       case CLEAR:
-        setPrevActionName("");
+        setPrevAction(defaultPrevAction);
         setCurrentNumber(0);
         break;
 
       case CLEAR_ALL:
         total.current = defaultTotal;
         setError(false);
-        setPrevActionName("");
+        setPrevAction(defaultPrevAction);
         setCurrentNumber(0);
         break;
 
@@ -69,7 +75,7 @@ export default function useCalculator() {
           value: currentNumber,
           prevAction: button.action,
         };
-        setPrevActionName(button.name);
+        setPrevAction({ name: button.name, action: button.action });
         setCurrentNumber(0);
         break;
 
@@ -82,29 +88,29 @@ export default function useCalculator() {
           )
         );
         total.current = defaultTotal;
-        setPrevActionName(button.name);
+        setPrevAction({ name: button.name, action: button.action });
         break;
 
       case INVERSE:
-        setPrevActionName("");
+        setPrevAction(defaultPrevAction);
         setCurrentNumber((prev) => -prev);
         break;
 
       case PERCENTAGE:
-        setPrevActionName("");
+        setPrevAction(defaultPrevAction);
         setCurrentNumber((prev) => prev / 100);
         break;
 
       case POINT:
         if (!currentNumber.toString().includes(".")) {
-          setPrevActionName("");
+          setPrevAction(defaultPrevAction);
           setHasDecimalPoint(true);
         }
         break;
 
       case SQUARE_ROOT:
         total.current = defaultTotal;
-        setPrevActionName(button.name);
+        setPrevAction({ name: button.name, action: button.action });
         const result = handleSquareRoot(currentNumber);
         if (isNaN(result)) setError(true);
         else setCurrentNumber(result);
@@ -115,7 +121,7 @@ export default function useCalculator() {
           value: handleSubstract(currentNumber, total.current.value),
           prevAction: button.action,
         };
-        setPrevActionName(button.name);
+        setPrevAction({ name: button.name, action: button.action });
         setCurrentNumber(0);
         break;
 
@@ -128,7 +134,7 @@ export default function useCalculator() {
     currentNumber,
     error,
     hasDecimalPoint,
-    prevActionName,
+    prevAction,
     calculate,
     setHasDecimalPoint,
     setCurrentNumber,
