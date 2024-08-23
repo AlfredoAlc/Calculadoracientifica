@@ -1,26 +1,50 @@
 import { ButtonLine, ButtonLines } from "@/types/buttons";
 import {
+  ABS,
   ADD,
+  ARCCOS,
+  ARCSINE,
+  ARCTAN,
   CLEAR,
+  COS,
+  CUBIC_ROOT,
+  DEG,
   DIVIDE,
+  E,
+  E_POW_X,
   EQUAL,
+  EXP,
+  FACTORIAL,
+  HYP,
   INVERSE,
+  INVERT_FRACTION,
+  LN,
+  LOG,
   MULTIPLY,
   PERCENTAGE,
+  PI,
   POINT,
+  POW,
+  POW_CUBIC,
+  POW_SQUARE,
+  RAD,
+  RAND,
+  SIN,
   SQUARE_ROOT,
   SUBSTRACT,
-} from "../../constants/buttons/actions";
+  TAN,
+  TEN_POW_X,
+} from "@/constants/buttons/actions";
 
 const line1: ButtonLine = [
   {
     id: "btn-c",
-    name: "c",
+    name: "C",
     action: CLEAR,
   },
   {
     id: "btn-inverse",
-    name: "+/-",
+    name: "⁺/₋",
     action: INVERSE,
   },
   {
@@ -30,7 +54,7 @@ const line1: ButtonLine = [
   },
   {
     id: "btn-divide",
-    name: "/",
+    name: "÷",
     action: DIVIDE,
   },
 ];
@@ -53,7 +77,7 @@ const line2: ButtonLine = [
   },
   {
     id: "btn-multiply",
-    name: "X",
+    name: "×",
     action: MULTIPLY,
   },
 ];
@@ -112,7 +136,7 @@ const line5: ButtonLine = [
   },
   {
     id: "btn-point",
-    name: ".",
+    name: "⋅",
     action: POINT,
   },
   {
@@ -125,6 +149,158 @@ const line5: ButtonLine = [
     name: "=",
     action: EQUAL,
   },
+];
+
+const lineTopActions: ButtonLine = [
+  {
+    id: "btn-log",
+    name: "log",
+    action: LOG,
+  },
+  {
+    id: "btn-ln",
+    name: "ln",
+    action: LN,
+  },
+  {
+    id: "btn-cubic-root",
+    name: "∛",
+    action: CUBIC_ROOT,
+  },
+  {
+    id: "btn-rand",
+    name: "rand",
+    action: RAND,
+  },
+];
+
+const lineAction1: ButtonLine = [
+  {
+    id: "btn-invert-fraction",
+    name: "¹/ₓ",
+    action: INVERT_FRACTION,
+  },
+  {
+    id: "btn-pow-square",
+    name: "x²",
+    action: POW_SQUARE,
+  },
+  {
+    id: "btn-pow-cubic",
+    name: "x³",
+    action: POW_CUBIC,
+  },
+  {
+    id: "btn-factorial",
+    name: "x!",
+    action: FACTORIAL,
+  },
+];
+
+const lineAction2: ButtonLine = [
+  {
+    id: "btn-deg",
+    name: "deg",
+    action: DEG,
+  },
+  {
+    id: "btn-hyp",
+    name: "hyp",
+    action: HYP,
+  },
+  {
+    id: "btn-sin",
+    name: "sin",
+    action: SIN,
+  },
+  {
+    id: "btn-arcsin",
+    name: "sin⁻¹",
+    action: ARCSINE,
+  },
+];
+const lineAction3: ButtonLine = [
+  {
+    id: "btn-rad",
+    name: "rad",
+    action: RAD,
+  },
+  {
+    id: "btn-pow",
+    name: "^",
+    action: POW,
+  },
+  {
+    id: "btn-cos",
+    name: "cos",
+    action: COS,
+  },
+  {
+    id: "btn-arccos",
+    name: "cos⁻¹",
+    action: ARCCOS,
+  },
+];
+const lineAction4: ButtonLine = [
+  {
+    id: "btn-pi",
+    name: "π",
+    action: PI,
+  },
+  {
+    id: "btn-euler",
+    name: "e",
+    action: E,
+  },
+  {
+    id: "btn-tan",
+    name: "tan",
+    action: TAN,
+  },
+  {
+    id: "btn-arctan",
+    name: "tan⁻¹",
+    action: ARCTAN,
+  },
+];
+const lineAction5: ButtonLine = [
+  {
+    id: "btn-abs",
+    name: "abs",
+    action: ABS,
+  },
+  {
+    id: "btn-exp",
+    name: "exp",
+    action: EXP,
+  },
+  {
+    id: "btn-ten-pow-x",
+    name: "10ˣ",
+    action: TEN_POW_X,
+  },
+  {
+    id: "btn-euler-pow-x",
+    name: "eˣ",
+    action: E_POW_X,
+  },
+];
+
+export const linesWithNumbers: ButtonLines = [
+  lineTopActions,
+  line1,
+  line2,
+  line3,
+  line4,
+  line5,
+];
+
+export const linesWithActions: ButtonLines = [
+  lineAction1,
+  lineAction2,
+  lineAction3,
+  lineAction4,
+  lineAction5,
 ];
 
 export const lines: ButtonLines = [line1, line2, line3, line4, line5];

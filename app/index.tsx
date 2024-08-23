@@ -1,20 +1,33 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { EQUAL, ERR } from "@/constants/buttons/actions";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import Buttons from "@/components/Buttons";
+import { EQUAL, ERR } from "@/constants/buttons/actions";
+import { tintColorAccent } from "@/constants/Colors";
+import useThemeColor from "@/hooks/useThemeColor";
+import useCalculator from "@/hooks/useCalculator";
+import useOrientation from "@/hooks/useOrientation";
 
 import { Button } from "@/types/buttons";
-import { tintColorAccent } from "@/constants/Colors";
-import useCalculator from "@/hooks/useCalculator";
 
 export default function HomeScreen() {
   const backgroundColor = useThemeColor({}, "background");
 
+  const { isPortrait } = useOrientation();
+
+  const {
+    currentNumber,
+    error,
+    hasDecimalPoint,
+    prevAction,
+    calculate,
+    setHasDecimalPoint,
+    setCurrentNumber,
+  } = useCalculator();
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 60,
+      paddingTop: isPortrait ? 60 : 30,
       backgroundColor,
     },
     scrollViewContainer: {
@@ -27,7 +40,7 @@ export default function HomeScreen() {
     },
     currentText: {
       color: "white",
-      fontSize: 60,
+      fontSize: isPortrait ? 60 : 30,
       transform: [{ scaleX: -1 }],
       textAlignVertical: "bottom",
       textTransform: "uppercase",
@@ -35,22 +48,12 @@ export default function HomeScreen() {
     prevActionText: {
       color: tintColorAccent,
       position: "absolute",
-      fontSize: 30,
-      top: 18,
+      fontSize: isPortrait ? 30 : 15,
+      top: isPortrait ? 18 : 4,
       left: 18,
       transform: [{ scaleX: -1 }],
     },
   });
-
-  const {
-    currentNumber,
-    error,
-    hasDecimalPoint,
-    prevAction,
-    calculate,
-    setHasDecimalPoint,
-    setCurrentNumber,
-  } = useCalculator();
 
   const handleOnPress = (button: Button) => {
     if (typeof button.value !== "undefined") {
@@ -97,9 +100,10 @@ export default function HomeScreen() {
         </ScrollView>
       </View>
       <Buttons
-        onPress={handleOnPress}
-        hasValue={currentNumber > 0 || hasDecimalPoint}
         error={error}
+        hasValue={currentNumber > 0 || hasDecimalPoint}
+        isPortrait={isPortrait}
+        onPress={handleOnPress}
       />
     </View>
   );
