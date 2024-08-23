@@ -7,6 +7,7 @@ import {
   CLEAR_ALL,
   DIVIDE,
   EQUAL,
+  ERR,
   INVERSE,
   MULTIPLY,
   PERCENTAGE,
@@ -25,7 +26,11 @@ import Buttons from "@/components/Buttons";
 
 import { Button } from "@/types/buttons";
 
-const defaultTotal = { value: 0, prevAction: "" };
+type totalLocal = {
+  value: number;
+  prevAction: string;
+};
+const defaultTotal: totalLocal = { value: 0, prevAction: "" };
 
 export default function HomeScreen() {
   const backgroundColor = useThemeColor({}, "background");
@@ -49,11 +54,13 @@ export default function HomeScreen() {
       fontSize: 60,
       transform: [{ scaleX: -1 }],
       textAlignVertical: "bottom",
+      textTransform: "uppercase",
     },
   });
 
-  const [currentNumber, setCurrentNumber] = useState(0);
-  const [hasDecimalPoint, setHasDecimalPoint] = useState(false);
+  const [currentNumber, setCurrentNumber] = useState<number>(0);
+  const [hasDecimalPoint, setHasDecimalPoint] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const total = useRef(defaultTotal);
 
   const handleOnPress = (button: Button) => {
@@ -85,6 +92,7 @@ export default function HomeScreen() {
 
       case CLEAR_ALL:
         total.current = defaultTotal;
+        setError(false);
         setCurrentNumber(0);
         break;
 
@@ -122,7 +130,9 @@ export default function HomeScreen() {
 
       case SQUARE_ROOT:
         total.current = defaultTotal;
-        setCurrentNumber(handleSquareRoot(currentNumber));
+        const result = handleSquareRoot(currentNumber);
+        if (isNaN(result)) setError(true);
+        else setCurrentNumber(result);
         break;
 
       case SUBSTRACT:
@@ -140,14 +150,15 @@ export default function HomeScreen() {
 
   const renderNumber = () => {
     try {
-      return currentNumber.toLocaleString("en-US", {
-        maximumSignificantDigits: 10,
-      });
+      return currentNumber !== 0
+        ? currentNumber.toLocaleString("en-US", {
+            maximumSignificantDigits: 10,
+          })
+        : "";
     } catch (err) {
-      console.log(err);
-      console.log(currentNumber);
+      console.log("renderNumber error: ", err);
       setCurrentNumber(0);
-      return 0;
+      return "";
     }
   };
 
@@ -162,14 +173,21 @@ export default function HomeScreen() {
           overScrollMode="always"
         >
           <Text style={styles.currentText}>
-            {renderNumber()}
-            {hasDecimalPoint && "."}
+            {error ? (
+              ERR
+            ) : (
+              <>
+                {renderNumber()}
+                {hasDecimalPoint && "."}
+              </>
+            )}
           </Text>
         </ScrollView>
       </View>
       <Buttons
         onPress={handleOnPress}
         hasValue={currentNumber > 0 && !!total.current.prevAction}
+        error={error}
       />
     </View>
   );

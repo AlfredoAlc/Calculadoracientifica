@@ -3,6 +3,7 @@ export const CLEAR = "clear";
 export const CLEAR_ALL = "clear-all";
 export const DIVIDE = "divide";
 export const EQUAL = "equal";
+export const ERR = "err";
 export const INVERSE = "inverse";
 export const MULTIPLY = "multiply";
 export const PERCENTAGE = "percentage";
