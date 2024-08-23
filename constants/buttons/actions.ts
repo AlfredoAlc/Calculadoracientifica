@@ -1,0 +1,11 @@
+export const ADD = "add";
+export const CLEAR = "clear";
+export const CLEAR_ALL = "clear-all";
+export const DIVIDE = "divide";
+export const EQUAL = "equal";
+export const INVERSE = "inverse";
+export const MULTIPLY = "multiply";
+export const PERCENTAGE = "percentage";
+export const POINT = "point";
+export const SQUARE_ROOT = "square-root";
+export const SUBSTRACT = "substract";
