@@ -26,12 +26,22 @@ export const handleAdd = (number, total, prevAction) => {
   return total + number
 }
 
-export const handleDivide = (number, total) => {
-  return total / number
+export const handleDivide = (number, total, prevAction) => {
+  if (prevAction && prevAction !== '' && total !== 0)
+    return calculateTotal(number, total, prevAction)
+  else if (total === 0)
+    return number
+  else
+    return total / number
 }
 
-export const handleMultiply = (number, total) => {
-  return total * number
+export const handleMultiply = (number, total, prevAction) => {
+  if (prevAction && prevAction !== '' && total !== 0)
+    return calculateTotal(number, total, prevAction)
+  else if (total === 0)
+    return number
+  else
+    return total * number
 }
 
 export const handleSubstract = (number, total) => {

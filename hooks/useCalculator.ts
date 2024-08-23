@@ -13,7 +13,9 @@ import {
 } from "@/constants/buttons/actions";
 import {
   handleAdd,
+  handleDivide,
   handleEqual,
+  handleMultiply,
   handleSquareRoot,
   handleSubstract,
 } from "@/utils/actions";
@@ -70,9 +72,25 @@ export default function useCalculator() {
         break;
 
       case DIVIDE:
+        total.current = {
+          value: handleDivide(
+            currentNumber,
+            total.current.value,
+            total.current.prevAction
+          ),
+          prevAction: button.action,
+        };
+        setPrevAction({ name: button.name, action: button.action });
+        setCurrentNumber(0);
+        break;
+
       case MULTIPLY:
         total.current = {
-          value: currentNumber,
+          value: handleMultiply(
+            currentNumber,
+            total.current.value,
+            total.current.prevAction
+          ),
           prevAction: button.action,
         };
         setPrevAction({ name: button.name, action: button.action });
