@@ -25,6 +25,7 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import Buttons from "@/components/Buttons";
 
 import { Button } from "@/types/buttons";
+import { tintColorAccent } from "@/constants/Colors";
 
 type totalLocal = {
   value: number;
@@ -56,11 +57,21 @@ export default function HomeScreen() {
       textAlignVertical: "bottom",
       textTransform: "uppercase",
     },
+    prevActionText: {
+      color: tintColorAccent,
+      position: "absolute",
+      fontSize: 30,
+      top: 18,
+      left: 18,
+      transform: [{ scaleX: -1 }],
+    },
   });
 
   const [currentNumber, setCurrentNumber] = useState<number>(0);
-  const [hasDecimalPoint, setHasDecimalPoint] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [hasDecimalPoint, setHasDecimalPoint] = useState<boolean>(false);
+  const [prevActionName, setPrevActionName] = useState<string>("");
+
   const total = useRef(defaultTotal);
 
   const handleOnPress = (button: Button) => {
@@ -83,16 +94,19 @@ export default function HomeScreen() {
           ),
           prevAction: button.action,
         };
+        setPrevActionName(button.name);
         setCurrentNumber(0);
         break;
 
       case CLEAR:
+        setPrevActionName("");
         setCurrentNumber(0);
         break;
 
       case CLEAR_ALL:
         total.current = defaultTotal;
         setError(false);
+        setPrevActionName("");
         setCurrentNumber(0);
         break;
 
@@ -102,6 +116,7 @@ export default function HomeScreen() {
           value: currentNumber,
           prevAction: button.action,
         };
+        setPrevActionName(button.name);
         setCurrentNumber(0);
         break;
 
@@ -114,22 +129,29 @@ export default function HomeScreen() {
           )
         );
         total.current = defaultTotal;
+        setPrevActionName(button.name);
         break;
 
       case INVERSE:
+        setPrevActionName("");
         setCurrentNumber((prev) => -prev);
         break;
 
       case PERCENTAGE:
+        setPrevActionName("");
         setCurrentNumber((prev) => prev / 100);
         break;
 
       case POINT:
-        if (!currentNumber.toString().includes(".")) setHasDecimalPoint(true);
+        if (!currentNumber.toString().includes(".")) {
+          setPrevActionName("");
+          setHasDecimalPoint(true);
+        }
         break;
 
       case SQUARE_ROOT:
         total.current = defaultTotal;
+        setPrevActionName(button.name);
         const result = handleSquareRoot(currentNumber);
         if (isNaN(result)) setError(true);
         else setCurrentNumber(result);
@@ -140,6 +162,7 @@ export default function HomeScreen() {
           value: handleSubstract(currentNumber, total.current.value),
           prevAction: button.action,
         };
+        setPrevActionName(button.name);
         setCurrentNumber(0);
         break;
 
@@ -165,6 +188,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.scrollViewContainer}>
+        <Text style={styles.prevActionText}>{prevActionName}</Text>
         <ScrollView
           contentContainerStyle={styles.textContainer}
           directionalLockEnabled
