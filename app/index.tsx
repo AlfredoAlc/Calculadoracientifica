@@ -1,8 +1,8 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import Buttons from "@/components/Buttons";
-import { EQUAL, ERR } from "@/constants/buttons/actions";
-import { tintColorAccent } from "@/constants/Colors";
+import Display from "@/components/Display";
+import { EQUAL } from "@/constants/buttons/actions";
 import useThemeColor from "@/hooks/useThemeColor";
 import useCalculator from "@/hooks/useCalculator";
 import useOrientation from "@/hooks/useOrientation";
@@ -30,29 +30,6 @@ export default function HomeScreen() {
       paddingTop: isPortrait ? 60 : 30,
       backgroundColor,
     },
-    scrollViewContainer: {
-      flex: 0.2,
-      transform: [{ scaleX: -1 }],
-      alignContent: "flex-end",
-    },
-    textContainer: {
-      paddingHorizontal: 20,
-    },
-    currentText: {
-      color: "white",
-      fontSize: isPortrait ? 60 : 30,
-      transform: [{ scaleX: -1 }],
-      textAlignVertical: "bottom",
-      textTransform: "uppercase",
-    },
-    prevActionText: {
-      color: tintColorAccent,
-      position: "absolute",
-      fontSize: isPortrait ? 30 : 15,
-      top: isPortrait ? 18 : 4,
-      left: 18,
-      transform: [{ scaleX: -1 }],
-    },
   });
 
   const handleOnPress = (button: Button) => {
@@ -67,38 +44,16 @@ export default function HomeScreen() {
     calculate(button);
   };
 
-  const renderNumber = () => {
-    if (error) return ERR;
-    if (currentNumber === 0) return "";
-    try {
-      const formattedNumber = currentNumber.toLocaleString("en-US", {
-        maximumSignificantDigits: 10,
-      });
-      return formattedNumber;
-    } catch (err) {
-      console.log("renderNumber error: ", err);
-      setCurrentNumber(0);
-      return "";
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <View style={styles.scrollViewContainer}>
-        <Text style={styles.prevActionText}>{prevAction.name}</Text>
-        <ScrollView
-          contentContainerStyle={styles.textContainer}
-          directionalLockEnabled
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          overScrollMode="always"
-        >
-          <Text style={styles.currentText}>
-            {renderNumber()}
-            {hasDecimalPoint ? "." : ""}
-          </Text>
-        </ScrollView>
-      </View>
+      <Display
+        currentNumber={currentNumber}
+        error={error}
+        hasDecimalPoint={hasDecimalPoint}
+        isPortrait={isPortrait}
+        prevActionName={prevAction.name}
+        setCurrentNumber={setCurrentNumber}
+      />
       <Buttons
         error={error}
         hasValue={currentNumber > 0 || hasDecimalPoint}
