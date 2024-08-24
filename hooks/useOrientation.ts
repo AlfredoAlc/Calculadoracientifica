@@ -24,7 +24,6 @@ export default function useOrientation() {
 
     if (!subscription) {
       subscription = addOrientationChangeListener(handleOrientationChange);
-      console.log("subscribed");
     }
 
     return () => removeOrientationChangeListener(subscription);

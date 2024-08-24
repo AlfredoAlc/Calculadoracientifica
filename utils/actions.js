@@ -63,3 +63,39 @@ export const handleEqual = (number, total, prevAction) => {
 export const handleSquareRoot = (number) => {
   return Math.sqrt(number)
 }
+
+export const handleInvertFraction = (number) => {
+  return Math.pow(number, -1);
+}
+
+export const handlePowSquare = (number) => {
+  return Math.pow(number, 2);
+}
+
+export const handlePowCubic = (number) => {
+  return Math.pow(number, 3);
+}
+
+export const handleFactorial = (number) => {
+  let i = parseInt(number) - 1;
+  for (i; i > 0; i--) {
+    number *= i;
+  }
+  return number
+}
+
+export const handleLog = (number) => {
+  return Math.log10(number);
+}
+
+export const handleLn = (number) => {
+  return Math.log(number);
+}
+
+export const handleCubicRoot = (number) => {
+  return Math.cbrt(number);
+}
+
+export const handleRandom = () => {
+  return Math.random()
+}

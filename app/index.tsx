@@ -1,18 +1,21 @@
 import { StyleSheet, View } from "react-native";
 
 import Buttons from "@/components/Buttons";
-import Display from "@/components/Display";
-import { EQUAL } from "@/constants/buttons/actions";
+import Display, { MAX_LENGTH } from "@/components/Display";
+import { DEG, EQUAL, RAD } from "@/constants/buttons/actions";
 import useThemeColor from "@/hooks/useThemeColor";
 import useCalculator from "@/hooks/useCalculator";
 import useOrientation from "@/hooks/useOrientation";
 
 import { Button } from "@/types/buttons";
+import { useState } from "react";
 
 export default function HomeScreen() {
   const backgroundColor = useThemeColor({}, "background");
 
   const { isPortrait } = useOrientation();
+
+  const [isDegree, setIsDegree] = useState(true);
 
   const {
     currentNumber,
@@ -22,7 +25,7 @@ export default function HomeScreen() {
     calculate,
     setHasDecimalPoint,
     setCurrentNumber,
-  } = useCalculator();
+  } = useCalculator(isDegree);
 
   const styles = StyleSheet.create({
     container: {
@@ -34,14 +37,18 @@ export default function HomeScreen() {
 
   const handleOnPress = (button: Button) => {
     if (typeof button.value !== "undefined") {
+      if (currentNumber.toString().length >= MAX_LENGTH) return;
       if (prevAction.action === EQUAL) return setCurrentNumber(button.value);
       const value = `${currentNumber}${hasDecimalPoint ? "." : ""}${
         button.value
       }`;
       if (hasDecimalPoint) setHasDecimalPoint(false);
       return setCurrentNumber(parseFloat(value));
+    } else if ([DEG, RAD].includes(button.action || "")) {
+      setIsDegree(button.action === DEG);
+    } else {
+      calculate(button);
     }
-    calculate(button);
   };
 
   return (
@@ -57,6 +64,7 @@ export default function HomeScreen() {
       <Buttons
         error={error}
         hasValue={currentNumber > 0 || hasDecimalPoint}
+        isDegree={isDegree}
         isPortrait={isPortrait}
         onPress={handleOnPress}
       />

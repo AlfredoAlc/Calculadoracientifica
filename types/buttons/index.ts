@@ -12,6 +12,7 @@ export type ButtonLines = Array<ButtonLine>;
 export type ButtonComponent = {
   error: boolean;
   hasValue: boolean;
+  isDegree: boolean;
   isPortrait: boolean;
   onPress: Function;
 };

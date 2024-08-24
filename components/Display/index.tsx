@@ -3,6 +3,8 @@ import { tintColorAccent } from "@/constants/Colors";
 import { ERR } from "@/constants/buttons/actions";
 import { DisplayComponent } from "@/types/display";
 
+export const MAX_LENGTH = 15;
+
 export default function Display({
   currentNumber,
   error,
@@ -42,7 +44,7 @@ export default function Display({
     if (currentNumber === 0) return "";
     try {
       const formattedNumber = currentNumber.toLocaleString("en-US", {
-        maximumSignificantDigits: 10,
+        maximumSignificantDigits: MAX_LENGTH,
       });
       return formattedNumber;
     } catch (err) {
