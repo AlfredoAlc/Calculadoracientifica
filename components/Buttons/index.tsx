@@ -2,14 +2,14 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { lines, linesWithActions, linesWithNumbers } from "./lines";
 import { tintColorAccent } from "@/constants/Colors";
-import { CLEAR, CLEAR_ALL, DEG, EQUAL, RAD } from "@/constants/buttons/actions";
+import { CLEAR, CLEAR_ALL, EQUAL } from "@/constants/buttons/actions";
 
 import { Button, ButtonComponent, ButtonLine } from "@/types/buttons";
 
 export default function Buttons({
   error,
+  grade,
   hasValue,
-  isDegree,
   isPortrait,
   onPress,
 }: Readonly<ButtonComponent>) {
@@ -45,8 +45,6 @@ export default function Buttons({
 
   const renderItem = (item: Button) => {
     const isClearAllButton = item.action === CLEAR && !hasValue;
-    const isDegreeButton = item.action === DEG && isDegree;
-    const isRadianButton = item.action === RAD && !isDegree;
     const isEqualDisabled = item.action === EQUAL && !hasValue;
     const isErrorDisabled = item.action !== CLEAR && error;
 
@@ -55,8 +53,7 @@ export default function Buttons({
         key={item.id}
         style={{
           ...styles.buttonContainer,
-          backgroundColor:
-            isDegreeButton || isRadianButton ? tintColorAccent : undefined,
+          backgroundColor: item.action === grade ? tintColorAccent : undefined,
         }}
         disabled={isEqualDisabled || isErrorDisabled}
         onPress={() =>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import Buttons from "@/components/Buttons";
@@ -8,14 +9,14 @@ import useCalculator from "@/hooks/useCalculator";
 import useOrientation from "@/hooks/useOrientation";
 
 import { Button } from "@/types/buttons";
-import { useState } from "react";
+import { GradeType } from "@/types/utils/actions";
 
 export default function HomeScreen() {
   const backgroundColor = useThemeColor({}, "background");
 
   const { isPortrait } = useOrientation();
 
-  const [isDegree, setIsDegree] = useState(true);
+  const [grade, setGrade] = useState<GradeType>(DEG);
 
   const {
     currentNumber,
@@ -25,7 +26,7 @@ export default function HomeScreen() {
     calculate,
     setHasDecimalPoint,
     setCurrentNumber,
-  } = useCalculator(isDegree);
+  } = useCalculator(grade);
 
   const styles = StyleSheet.create({
     container: {
@@ -44,8 +45,8 @@ export default function HomeScreen() {
       }`;
       if (hasDecimalPoint) setHasDecimalPoint(false);
       return setCurrentNumber(parseFloat(value));
-    } else if ([DEG, RAD].includes(button.action || "")) {
-      setIsDegree(button.action === DEG);
+    } else if (button.action === DEG || button.action === RAD) {
+      setGrade(button.action);
     } else {
       calculate(button);
     }
@@ -63,8 +64,8 @@ export default function HomeScreen() {
       />
       <Buttons
         error={error}
+        grade={grade}
         hasValue={currentNumber > 0 || hasDecimalPoint}
-        isDegree={isDegree}
         isPortrait={isPortrait}
         onPress={handleOnPress}
       />

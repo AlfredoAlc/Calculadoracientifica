@@ -1,3 +1,5 @@
+import { GradeType } from "../utils/actions";
+
 export type Button = {
   id: string;
   name: string;
@@ -11,8 +13,8 @@ export type ButtonLines = Array<ButtonLine>;
 
 export type ButtonComponent = {
   error: boolean;
+  grade: GradeType;
   hasValue: boolean;
-  isDegree: boolean;
   isPortrait: boolean;
   onPress: Function;
 };

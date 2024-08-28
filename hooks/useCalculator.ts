@@ -1,23 +1,38 @@
+import { useRef, useState } from "react";
 import {
+  ABS,
   ADD,
+  ARCCOS,
+  ARCSINE,
+  ARCTAN,
   CLEAR,
   CLEAR_ALL,
+  COS,
   CUBIC_ROOT,
   DIVIDE,
+  E,
+  E_POW_X,
   EQUAL,
   FACTORIAL,
+  HYPOTENUSE,
   INVERSE,
   INVERT_FRACTION,
   LN,
   LOG,
   MULTIPLY,
   PERCENTAGE,
+  PI,
   POINT,
+  POW,
   POW_CUBIC,
   POW_SQUARE,
   RAND,
+  SIN,
   SQUARE_ROOT,
   SUBSTRACT,
+  TAN,
+  TEN_POW_X,
+  Y_ROOT,
 } from "@/constants/buttons/actions";
 import {
   handleInvertFraction,
@@ -34,10 +49,21 @@ import {
   handleLn,
   handleCubicRoot,
   handleRandom,
+  handleSine,
+  handleCosine,
+  handleTan,
+  handleArcSine,
+  handleArcCosine,
+  handleArcTan,
+  handlePi,
+  handleEuler,
+  handleAbs,
+  handleTenPowX,
+  handleEPowX,
 } from "@/utils/actions";
 
 import { Button } from "@/types/buttons";
-import { useRef, useState } from "react";
+import { GradeType } from "@/types/utils/actions";
 
 type TotalLocal = {
   value: number;
@@ -52,7 +78,7 @@ const defaultTotal: TotalLocal = { value: 0, prevAction: "" };
 
 const defaultPrevAction: PrevAction = { action: "", name: "" };
 
-export default function useCalculator(isDegrees: boolean) {
+export default function useCalculator(grade: GradeType) {
   const [currentNumber, setCurrentNumber] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
   const [hasDecimalPoint, setHasDecimalPoint] = useState<boolean>(false);
@@ -208,6 +234,99 @@ export default function useCalculator(isDegrees: boolean) {
         total.current = defaultTotal;
         setPrevAction({ name: button.name, action: button.action });
         handleError(handleFactorial(currentNumber));
+        break;
+
+      case HYPOTENUSE:
+        total.current = {
+          value: currentNumber,
+          prevAction: button.action,
+        };
+        setPrevAction({ name: button.name, action: button.action });
+        setCurrentNumber(0);
+        break;
+
+      case SIN:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleSine(currentNumber, grade));
+        break;
+
+      case ARCSINE:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleArcSine(currentNumber, grade));
+        break;
+
+      case POW:
+        total.current = {
+          value: currentNumber,
+          prevAction: button.action,
+        };
+        setPrevAction({ name: button.name, action: button.action });
+        setCurrentNumber(0);
+        break;
+
+      case COS:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleCosine(currentNumber, grade));
+        break;
+
+      case ARCCOS:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleArcCosine(currentNumber, grade));
+        break;
+
+      case PI:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        setCurrentNumber(handlePi());
+        break;
+
+      case E:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        setCurrentNumber(handleEuler());
+        break;
+
+      case TAN:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleTan(currentNumber, grade));
+        break;
+
+      case ARCTAN:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleArcTan(currentNumber, grade));
+        break;
+
+      case ABS:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleAbs(currentNumber));
+        break;
+
+      case Y_ROOT:
+        total.current = {
+          value: currentNumber,
+          prevAction: button.action,
+        };
+        setPrevAction({ name: button.name, action: button.action });
+        setCurrentNumber(0);
+        break;
+
+      case TEN_POW_X:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleTenPowX(currentNumber));
+        break;
+
+      case E_POW_X:
+        total.current = defaultTotal;
+        setPrevAction({ name: button.name, action: button.action });
+        handleError(handleEPowX(currentNumber));
         break;
 
       default:

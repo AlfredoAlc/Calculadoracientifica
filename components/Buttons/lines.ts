@@ -13,9 +13,8 @@ import {
   E,
   E_POW_X,
   EQUAL,
-  EXP,
   FACTORIAL,
-  HYP,
+  HYPOTENUSE,
   INVERSE,
   INVERT_FRACTION,
   LN,
@@ -34,6 +33,7 @@ import {
   SUBSTRACT,
   TAN,
   TEN_POW_X,
+  Y_ROOT,
 } from "@/constants/buttons/actions";
 
 const line1: ButtonLine = [
@@ -49,7 +49,7 @@ const line1: ButtonLine = [
   },
   {
     id: "btn-square-root",
-    name: "√",
+    name: "²√",
     action: SQUARE_ROOT,
   },
   {
@@ -164,7 +164,7 @@ const lineTopActions: ButtonLine = [
   },
   {
     id: "btn-cubic-root",
-    name: "∛",
+    name: "³√",
     action: CUBIC_ROOT,
   },
   {
@@ -206,7 +206,7 @@ const lineAction2: ButtonLine = [
   {
     id: "btn-hyp",
     name: "hyp",
-    action: HYP,
+    action: HYPOTENUSE,
   },
   {
     id: "btn-sin",
@@ -270,9 +270,9 @@ const lineAction5: ButtonLine = [
     action: ABS,
   },
   {
-    id: "btn-exp",
-    name: "exp",
-    action: EXP,
+    id: "btn-y-root",
+    name: "ʸ√ₓ",
+    action: Y_ROOT,
   },
   {
     id: "btn-ten-pow-x",
