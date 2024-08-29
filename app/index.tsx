@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 
 import Buttons from "@/components/Buttons";
 import Display, { MAX_LENGTH } from "@/components/Display";
@@ -54,6 +55,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
+      <BannerAd
+        unitId="ca-app-pub-4769341895289435/7697356506"
+        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      />
       <Display
         currentNumber={currentNumber}
         error={error}

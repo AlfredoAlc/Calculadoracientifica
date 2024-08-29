@@ -5,6 +5,9 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import mobileAds from "react-native-google-mobile-ads";
+
+mobileAds().initialize();
 
 export default function AppLayout() {
   const colorScheme = useColorScheme();
